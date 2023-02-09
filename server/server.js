@@ -9,6 +9,7 @@ import { } from 'dotenv/config'
 //#region Directory Imports
 import log from "./config/logging.js";
 import corsOptions from "./config/corsOptions.js";
+import backgroundController from "./Controllers/backgroundController.js";
 //#endregion
 
 //#region Server configuration
@@ -36,6 +37,10 @@ connect(dbURL)
     })
 //#endregion
 
+//#region Routing
 server.get('/', (req, res) => {
     res.send("Hi")
-})
+});
+server.use("/background", backgroundController);
+
+//#endregion

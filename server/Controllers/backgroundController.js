@@ -20,7 +20,7 @@ router.get('/', async(req, res) => {
         res.status(200).send({
             background: background,
             error: null,
-            message: "Background pieces retrieved successfully";
+            message: "Background pieces retrieved successfully"
         });
     }catch(error){
         log.error(error.message);
@@ -33,18 +33,18 @@ router.get('/', async(req, res) => {
 })
 //#endregion
 
-//#region GET ALL at id
+//#region GET ALL for consumer
 router.get('/list', async(req, res) => {
-    const id = req.query.creatorId
+    const creatorId = req.query.creatorId
     let background = null;
 
     try{
-        background = await Background.find({creator: id}).exec();
+        background = await Background.find({creator: creatorId}).exec();
 
         res.status(200).send({
             background: background,
             error: null,
-            message: "Background pieces retrieved successfully";
+            message: "Background pieces retrieved successfully"
         });
     }catch(error){
         log.error(error.message);
@@ -54,8 +54,89 @@ router.get('/list', async(req, res) => {
             message: "Background pieces retrieval failed"
         });
     }
-})
+});
 //#endregion
 
+//#region GET ALL for user
+router.get('/index', requireAuth, async (req, res) => {
+    let background = null;
+    const creator = req.user._id;
+
+    try{
+        background = await Background.find({creator}).exec();
+
+        res.status(200).send({
+            background: background,
+            error: null,
+            message: "Background pieces retrieved successfully"
+        });
+    }catch(error){
+        log.error(error.message);
+        res.status(400).send({
+            background: background,
+            error: error.message,
+            message: "Background pieces retrieval failed"
+        });
+    }
+});
+//#endregion
+
+//#region POST
+router.post("/add", upload.single("piece"), async(req, res) => {
+    let background = null;
+
+    try{
+        const data = await uploadToCloudinary(req.file.path, "background")
+
+        background = new Background({
+            title: req.body.title,
+            piece: data.url,
+            public_id: data.public_id,
+            // creator: req.user._id
+        });
+
+        await background.save();
+        res.status(201).send({
+            background: background,
+            error: null,
+            message: "New background piece was added successfully"
+        });
+    }catch(error){
+        log.error(err.message);
+        res.status(400).send({
+            background: background,
+            error: err.message,
+            message: "Could not add new background piece"
+        });
+    }
+});
+//#endregion
+
+//#region DELETE
+router.delete('/:id', async(req, res) => {
+    let background = null;
+
+    try{
+        background = await Background.findById(req.params.id);
+        const publicId = background.public_id;
+        await removeFromCloudinary(publicId)
+        await background.remove();
+
+        res.status(201).send({
+            error: null,
+            message: "Background piece deleted successfully",
+        });
+    } catch (error) {
+        log.error(error.message)
+        res.status(400).send({
+            background: background,
+            error: error.message,
+            message: "Could not delete background piece"
+        });
+    }
+});
+//#endregion
 
 //#endregion
+
+export default router;

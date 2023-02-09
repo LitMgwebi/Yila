@@ -5,13 +5,13 @@ const backgroundSchema = new Schema({
         type: String,
         required: [true, "Please enter the title of this piece: "]
     },
-    photo: {
+    piece: {
         type: String,
     },
-    creator : {
-        type: String,
-        required: true,
-    },
+    // creator : {
+    //     type: String,
+    //     required: true,
+    // },
     public_id: {
         type: String
     }
