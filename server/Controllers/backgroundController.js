@@ -1,28 +1,28 @@
 //#region Imports
 import log from "../config/logging.js";
 import Background from "../Models/Background.js";
-import {Router} from "express";
+import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import {uploadToCloudinary, removeFromCloudinary} from "../Services/cloudinary.js";
+import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
 //#endregion
 
 //#region Router
 const router = Router();
 
 //#region GET ALL 
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
     let background = null;
 
-    try{
-        background = await Background.find().sort({createdAt: "desc"}).exec();
+    try {
+        background = await Background.find().sort({ createdAt: "desc" }).exec();
 
         res.status(200).send({
             background: background,
             error: null,
             message: "Background pieces retrieved successfully"
         });
-    }catch(error){
+    } catch (error) {
         log.error(error.message);
         res.status(400).send({
             background: background,
@@ -34,19 +34,19 @@ router.get('/', async(req, res) => {
 //#endregion
 
 //#region GET ALL for consumer
-router.get('/list', async(req, res) => {
+router.get('/list', async (req, res) => {
     const creatorId = req.query.creatorId
     let background = null;
 
-    try{
-        background = await Background.find({creator: creatorId}).exec();
+    try {
+        background = await Background.find({ creator: creatorId }).sort({ createdAt: "desc" }).exec();
 
         res.status(200).send({
             background: background,
             error: null,
             message: "Background pieces retrieved successfully"
         });
-    }catch(error){
+    } catch (error) {
         log.error(error.message);
         res.status(400).send({
             background: background,
@@ -62,15 +62,15 @@ router.get('/index', requireAuth, async (req, res) => {
     let background = null;
     const creator = req.user._id;
 
-    try{
-        background = await Background.find({creator}).exec();
+    try {
+        background = await Background.find({ creator }).sort({ createdAt: "desc" }).exec();
 
         res.status(200).send({
             background: background,
             error: null,
             message: "Background pieces retrieved successfully"
         });
-    }catch(error){
+    } catch (error) {
         log.error(error.message);
         res.status(400).send({
             background: background,
@@ -82,10 +82,10 @@ router.get('/index', requireAuth, async (req, res) => {
 //#endregion
 
 //#region POST
-router.post("/add", upload.single("piece"), async(req, res) => {
+router.post("/add", upload.single("piece"), async (req, res) => {
     let background = null;
 
-    try{
+    try {
         const data = await uploadToCloudinary(req.file.path, "background")
 
         background = new Background({
@@ -101,7 +101,7 @@ router.post("/add", upload.single("piece"), async(req, res) => {
             error: null,
             message: "New background piece was added successfully"
         });
-    }catch(error){
+    } catch (error) {
         log.error(err.message);
         res.status(400).send({
             background: background,
@@ -113,10 +113,10 @@ router.post("/add", upload.single("piece"), async(req, res) => {
 //#endregion
 
 //#region DELETE
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', async (req, res) => {
     let background = null;
 
-    try{
+    try {
         background = await Background.findById(req.params.id);
         const publicId = background.public_id;
         await removeFromCloudinary(publicId)

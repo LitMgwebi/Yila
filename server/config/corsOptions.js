@@ -1,5 +1,6 @@
 const allowedOrigins = [
-    'https://moyisi.onrender.com'
+    'https://yila.onrender.com',
+    'http://localhost:3000'
 ]
 
 const corsOptions = {

@@ -19,7 +19,7 @@ const host = process.env.HOST
 
 const server = express();
 server.use(express.json());
-// server.use(cors(corsOptions));
+server.use(cors(corsOptions));
 // server.use(express.static(__dirname + "/public"));
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());

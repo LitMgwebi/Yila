@@ -1,10 +1,10 @@
 //#region Imports
 import log from "../config/logging.js";
 import FineArt from "../Models/FineArt.js";
-import {Router} from "express";
+import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import {uploadToCloudinary, removeFromCloudinary} from "../Services/cloudinary.js";
+import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
 //#endregion
 
 //#region Router
@@ -15,9 +15,9 @@ router.get("/", async (req, res) => {
     let fineArt = null;
 
     try {
-        const landscape = await FineArt.find({physicalType: 'Landscape'}).sort({createdAt: "desc"}).exec();
-        const portrait = await FineArt.find({physicalType: 'Portrait'}).sort({createdAt: "desc"}).exec();
-        const other = await FineArt.find({physicalType: 'Other'}).sort({createdAt: "desc"}).exec();
+        const landscape = await FineArt.find({ physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
+        const portrait = await FineArt.find({ physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
+        const other = await FineArt.find({ physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
 
         fineArt = {
             landscape: landscape,
@@ -41,14 +41,14 @@ router.get("/", async (req, res) => {
 //#endregion
 
 //#region GET ALL for consumer
-router.get('/list', async(req, res) => {
+router.get('/list', async (req, res) => {
     let fineArt = null;
     const creatorId = req.query.creatorId;
 
     try {
-        const landscape = await FineArt.find({creator: creatorId, physicalType: 'Landscape'}).exec();
-        const portrait = await FineArt.find({creator: creatorId, physicalType: 'Portrait'}).exec();
-        const other = await FineArt.find({creator: creatorId, physicalType: 'Other'}).exec();
+        const landscape = await FineArt.find({ creator: creatorId, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
+        const portrait = await FineArt.find({ creator: creatorId, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
+        const other = await FineArt.find({ creator: creatorId, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
 
         fineArt = {
             landscape: landscape,
@@ -77,9 +77,9 @@ router.get('/index', requireAuth, async (req, res) => {
     const creator = req.user._id;
 
     try {
-        const landscape = await FineArt.find({creator, physicalType: 'Landscape'}).exec();
-        const portrait = await FineArt.find({creator, physicalType: 'Portrait'}).exec();
-        const other = await FineArt.find({creator, physicalType: 'Other'}).exec();
+        const landscape = await FineArt.find({ creator, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
+        const portrait = await FineArt.find({ creator, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
+        const other = await FineArt.find({ creator, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
 
         fineArt = {
             landscape: landscape,
@@ -159,3 +159,5 @@ router.delete('/:id', async (req, res) => {
 //#endregion
 
 //#endregion
+
+export default router;
