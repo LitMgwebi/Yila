@@ -1,6 +1,6 @@
 //#region Imports
 import log from "../config/logging.js";
-import Translation from "../Models/Translation";
+import Translation from "../Models/Translation.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";

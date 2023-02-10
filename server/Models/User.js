@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
 import validator from "validator";
-import e from "express";
 
 const userSchema = new Schema({
     email: {
@@ -14,11 +13,26 @@ const userSchema = new Schema({
         required: [true, "Please enter password"],
         min: [6, "Please make a password with more than 6 characters"],
     },
+    firstName: {
+        type: String,
+    },
+    lastName: {
+        type: String,
+    },
+    DOB: {
+        type: Date
+    },
+    profilePhoto: {
+        type: String,
+    },
+    public_id: {
+        type: String
+    }
 },
     {
         statics: {
             //static signup method
-            async signup(email, password) {
+            async signup(email, password, firstName, lastName, DOB, profilePhoto, public_id) {
 
                 //validation
                 if (!email || !password) {
@@ -40,7 +54,7 @@ const userSchema = new Schema({
                 const salt = await bcrypt.genSalt(10)
                 const hash = await bcrypt.hash(password, salt);
 
-                const user = await this.create({ email, password: hash })
+                const user = await this.create({ email, password: hash, firstName, lastName, DOB, profilePhoto, public_id})
 
                 return user;
             },

@@ -10,6 +10,12 @@ import { } from 'dotenv/config'
 import log from "./config/logging.js";
 import corsOptions from "./config/corsOptions.js";
 import backgroundController from "./Controllers/backgroundController.js";
+import animationController from "./Controllers/animationController.js";
+import characterDesignController from "./Controllers/characterDesignController.js";
+import conceptController from "./Controllers/conceptController.js";
+import fineArtController from "./Controllers/fineArtController.js";
+import translationController from "./Controllers/translationController.js";
+import userController from "./Controllers/userController.js";
 //#endregion
 
 //#region Server configuration
@@ -41,6 +47,11 @@ connect(dbURL)
 server.get('/', (req, res) => {
     res.send("Hi")
 });
-server.use("/background", backgroundController);
+server.use('/background', backgroundController);
+server.use('/fineArt', fineArtController);
+server.use('/user', userController);
+server.use('/concept', conceptController);
+server.use('/characterDesign', characterDesignController);
+server.use('/translation', translationController);
 
 //#endregion
