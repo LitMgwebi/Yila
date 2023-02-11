@@ -1,6 +1,7 @@
 const allowedOrigins = [
     'https://yila.onrender.com',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'http://192.168.0.9:3000'
 ]
 
 const corsOptions = {
