@@ -10,6 +10,7 @@ function FineArtAdd() {
     const [dimension, setDimension] = useState("");
     const [article, setArticle] = useState("");
     const [piece, setPiece] = useState("");
+    const [load, setLoad] = useState(false);
 
     function handleCancel(e){
         e.preventDefault();
@@ -23,6 +24,7 @@ function FineArtAdd() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoad(true)
         const data = {
             title: title,
             physicalType: physicalType,
@@ -43,9 +45,11 @@ function FineArtAdd() {
                 }
             });
             setStatus(res.data.message);
+            setLoad(false)
         }catch(error){
             setStatus(error.response.data.error);
             console.error(error.message);
+            setLoad(false)
         }
 
         window.location.reload(false)
@@ -117,6 +121,7 @@ function FineArtAdd() {
             </div>
             <div className="controls">
                 {status && <div className="status">{status}</div>}
+                {load && <div>Loading...</div>}
                 <div className="button-group">
                     <button type="submit" className="btn btn-primary">Submit</button>
                     <button onClick={handleCancel} className="btn btn-secondary">Cancel</button>

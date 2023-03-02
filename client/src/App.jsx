@@ -3,6 +3,10 @@ import Home from "./pages/Home/Home";
 import BackgroundIndex from "./pages/Background/BackgroundIndex";
 import FineArtIndex from "./pages/FineArt/FineArtIndex";
 
+import ConceptRecord from "./pages/Concept/ConceptRecord";
+import ConceptAdd from "./pages/Concept/ConceptAdd";
+import ConceptIndex from "./pages/Concept/ConceptIndex";
+
 // import useLocalStorage from "use-local-storage";
 import {
   BrowserRouter,
@@ -21,6 +25,10 @@ function App() {
 
           <Route path="/background" element={<BackgroundIndex/>}/>
           <Route path="/fineArt" element={<FineArtIndex />}/>
+
+          <Route path="/concept" element={<ConceptIndex/>}/>
+          <Route path="/concept/:id" element={<ConceptRecord />}/>  
+          <Route path="/concept/add" element={<ConceptAdd/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -11,10 +11,10 @@ const conceptSchema = new Schema({
     pieces: {
         type: Array,
     },
-    creator: {
-        type: String,
-        required: true,
-    },
+    // creator: {
+    //     type: String,
+    //     required: true,
+    // },
     public_ids: {
         type: Array
     }

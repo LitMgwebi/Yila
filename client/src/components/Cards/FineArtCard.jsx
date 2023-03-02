@@ -18,7 +18,7 @@ function FineArtCard({ payload }) {
                 <CardMedia
                     component="img"
                     alt={payload.title}
-                    image={payload.photo}
+                    image={payload.piece}
                     className="cardMedia"
                 />
             </Card>

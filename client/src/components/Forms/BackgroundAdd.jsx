@@ -6,6 +6,7 @@ function BackgroundAdd() {
     const [title, setTitle] = useState("");
     const [piece, setPiece] = useState("");
     const [status, setStatus] = useState(null)
+    const [load, setLoad] = useState(false);
 
     function handleCancel(e) {
         e.preventDefault();
@@ -16,6 +17,7 @@ function BackgroundAdd() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        setLoad(true)
 
         const data = {
             title: title,
@@ -35,9 +37,11 @@ function BackgroundAdd() {
             });
 
             setStatus(res.data.message)
+            setLoad(false)
         } catch (error) {
             setStatus(error.response.data.error);
             console.error(error.message);
+            setLoad(false)
         }
         window.location.reload(false)
     }
@@ -68,6 +72,7 @@ function BackgroundAdd() {
             </div>
             <div className="controls">
                 {status && <div className="status">{status}</div>}
+                {load && <div>Loading...</div>}
                 <div className="button-group">
                     <button type="submit" className="btn btn-primary">Submit</button>
                     <button onClick={handleCancel} className="btn btn-secondary">Cancel</button>

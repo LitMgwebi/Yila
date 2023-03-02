@@ -14,7 +14,7 @@ function FineArtIndex() {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `${baseUrl}/fineArt`
+            url: `${baseUrl}/fineArt/`
         }).then((res) => {
             if (res.data.fineArt.length > 0) {
                 setPayloads(res.data.fineArt);

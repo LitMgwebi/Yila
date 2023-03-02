@@ -6,18 +6,16 @@ import baseUrl from "../../hooks/baseUrl";
 
 function BackgroundCard({ payload }) {
     const [status, setStatus] = useState(null);
-    const [isPending, setIsPending] = useState(true);
+    const [load, setLoad] = useState(false)
     // const { user } = useAuthContext();
 
     const useConfirm = () => {
-        setIsPending(true)
         if (window.confirm("Are you sure you want to delete"))
             handleDelete();
     }
 
-
-
     async function handleDelete() {
+        setLoad(true);
         try {
             const res = await axios({
                 method: "DELETE",
@@ -28,9 +26,11 @@ function BackgroundCard({ payload }) {
             })
 
             setStatus(res.data.message)
+            setLoad(false)
         } catch (error) {
             setStatus(error.response.data.error);
             console.log(error.message)
+            setLoad(false)
         }
         window.location.reload(false)
     }
@@ -40,14 +40,14 @@ function BackgroundCard({ payload }) {
                 <CardMedia
                     component="img"
                     alt={payload.title}
-                    image={payload.photo}
+                    image={payload.piece}
                     className="cardMedia"
                 />
 
                 <div className="cardHeader">
                     <h4>{payload.title}</h4>
                     {status && <div className="status">{status}</div>}
-                    {isPending && <div>Loading...</div>}
+                    {load && <div>Loading...</div>}
                 </div>
             </Card>
         </div>
