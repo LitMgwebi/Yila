@@ -133,6 +133,12 @@ router.post('/add', upload.array("pieces"), async (req, res) => {
         });
     } catch (error) {
         log.error(error);
+
+        for (let i = 0; i < public_ids.length; i++) {
+            const publicId = public_ids[i];
+            await removeFromCloudinary(publicId);
+        }
+
         res.status(400).send({
             concept: concept,
             error: error.message,

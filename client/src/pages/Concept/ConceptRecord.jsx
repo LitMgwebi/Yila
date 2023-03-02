@@ -24,19 +24,16 @@ function ConceptRecord() {
             method: "GET",
             url: `${baseUrl}/concept/${id}`
         }).then((res) => {
-            if (res.data.concept) {
-                const update = {
-                    title: res.data.concept.title,
-                    article: res.data.concept.article,
-                    pieces: res.data.concept.pieces
-                }
-                setPayload(payload => ({
-                    ...payload,
-                    ...update
-                }));
-                setStatus(res.data.message);
+            const update = {
+                title: res.data.concept.title,
+                article: res.data.concept.article,
+                pieces: res.data.concept.pieces
             }
-
+            setPayload(payload => ({
+                ...payload,
+                ...update
+            }));
+            setStatus(res.data.message);
             setLoad(false);
         }).catch((error) => {
             setLoad(false);

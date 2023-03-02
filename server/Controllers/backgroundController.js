@@ -84,9 +84,9 @@ router.get('/index', requireAuth, async (req, res) => {
 //#region POST
 router.post("/add", upload.single("piece"), async (req, res) => {
     let background = null;
-
+    let data = null;
     try {
-        const data = await uploadToCloudinary(req.file.path, "background")
+        data = await uploadToCloudinary(req.file.path, "background")
 
         background = new Background({
             title: req.body.title,
@@ -103,6 +103,7 @@ router.post("/add", upload.single("piece"), async (req, res) => {
         });
     } catch (error) {
         log.error(err.message);
+        await removeFromCloudinary(data.public_id)
         res.status(400).send({
             background: background,
             error: err.message,

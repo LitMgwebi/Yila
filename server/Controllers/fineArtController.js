@@ -105,8 +105,9 @@ router.get('/index', requireAuth, async (req, res) => {
 //#region POST
 router.post('/add', upload.single('piece'), async (req, res) => {
     let fineArt = null;
+    let data = null;
     try {
-        const data = await uploadToCloudinary(req.file.path, "fine")
+        data = await uploadToCloudinary(req.file.path, "fine")
 
         fineArt = new FineArt({
             title: req.body.title,
@@ -125,6 +126,7 @@ router.post('/add', upload.single('piece'), async (req, res) => {
         });
     } catch (error) {
         log.error(error);
+        await removeFromCloudinary(data.public_id);
         res.status(400).send({
             fineArt: fineArt,
             error: error.message,

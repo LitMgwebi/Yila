@@ -1,6 +1,7 @@
 //#region Imports
 import log from "../config/logging.js";
 import CharacterDesign from "../Models/CharacterDesign.js";
+import Translation from "../Models/Translation.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
@@ -104,8 +105,9 @@ router.get('/:id', async (req, res) => {
 //#region POST
 router.post('/add', upload.single('originalCharacter'), async (req, res) => {
     let cd = null;
+    let data = null;
     try {
-        const data = await uploadToCloudinary(req.file.path, "characterDesign")
+        data = await uploadToCloudinary(req.file.path, "characterDesign")
 
         cd = new CharacterDesign({
             nameOfCharacter: req.body.nameOfCharacter,
@@ -121,6 +123,7 @@ router.post('/add', upload.single('originalCharacter'), async (req, res) => {
         });
     } catch (error) {
         log.error(error);
+        await removeFromCloudinary(data.public_id)
         res.status(400).send({
             characterDesign: cd,
             error: error.message,
