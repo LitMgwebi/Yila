@@ -15,10 +15,10 @@ const translationSchema = new Schema({
         required: true,
         // ref: 'CharacterDesign'
     },
-    creator: {
-        type: String,
-        required: true,
-    },
+    // creator: {
+    //     type: String,
+    //     required: true,
+    // },
 }, {timestamps: true});
 
 const Translation = model("Translation", translationSchema);

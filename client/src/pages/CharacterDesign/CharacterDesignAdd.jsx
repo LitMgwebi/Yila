@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-// import TranslationAdd from "./Translation/TranslationAdd";
+import TranslationAdd from "./Translation/TranslationAdd";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import baseUrl from "../../hooks/baseUrl";
 
@@ -84,7 +84,7 @@ function CharacterDesignAdd() {
                 </div>
             </form>
 
-            {/* {showButton && <TranslationAdd id={id} />} */}
+            {showButton && <TranslationAdd id={id} />}
         </div>
     )
 }

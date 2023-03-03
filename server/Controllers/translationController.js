@@ -54,14 +54,13 @@ router.post('/add', upload.array("process"), async(req, res) => {
             public_ids.push(public_id);
         }
 
+        //     // creator: req.user._id
         translation = new Translation({
             article: req.body.article,
             characterDesign: req.body.characterDesign,
             process: process,
             public_ids: public_ids,
-            creator: req.user._id
-        });
-
+        })
         await translation.save();
 
         res.status(201).send({

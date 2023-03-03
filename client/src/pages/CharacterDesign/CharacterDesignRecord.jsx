@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { useState, useEffect } from "react";
-// import TranslationIndex from "./Translation/TranslationIndex";
+import TranslationIndex from "./Translation/TranslationIndex";
 import baseUrl from "../../hooks/baseUrl";
 
 function CharacterDesignRecord() {
@@ -39,25 +39,25 @@ function CharacterDesignRecord() {
             console.error(error.message);
         })
 
-        // axios({
-        //     method: "GET",
-        //     url: `${baseUrl}/translation/`,
-        //     params:{
-        //         characterDesign: id
-        //     }
-        // }).then((res) => {
-        //     if (res.data) {
-        //         setTranslations(res.data.translation)
-        //         setStatus(res.data.message);
-        //     } else {
-        //         setStatus("There are no entries in the database")
-        //     }
-        //     setLoad(false);
-        // }).catch((error) => {
-        //     setLoad(false);
-        //     setStatus(error.response.data.error);
-        //     console.error(error.message);
-        // });
+        axios({
+            method: "GET",
+            url: `${baseUrl}/translation/`,
+            params:{
+                characterDesign: id
+            }
+        }).then((res) => {
+            if (res.data) {
+                setTranslations(res.data.translation)
+                setStatus(res.data.message);
+            } else {
+                setStatus("There are no entries in the database")
+            }
+            setLoad(false);
+        }).catch((error) => {
+            setLoad(false);
+            setStatus(error.response.data.error);
+            console.error(error.message);
+        });
     }, [id]);
 
     const handleConfirm = () => {
@@ -109,13 +109,13 @@ function CharacterDesignRecord() {
 
             <h3 className="ProjectHeader">Translations</h3>
 
-            {/* <div className="translations">
+            <div className="translations">
                 {translations && translations.map((translation, i) => {
                     return (
                         <TranslationIndex payload={translation} />
                     );
                 })}
-            </div> */}
+            </div>
         </div>
     )
 }
