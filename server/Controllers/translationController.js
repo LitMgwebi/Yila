@@ -4,7 +4,8 @@ import Translation from "../Models/Translation.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
+import { removeFromCloudinary } from "../Services/cloudinary.js";
+import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 //#endregion
 
 //#region Router
@@ -39,26 +40,14 @@ router.get('/', async(req, res) => {
 //#region POST
 router.post('/add', upload.array("process"), async(req, res) => {
     let translation = null;
-    let data;
-    const process = [];
-    const public_ids = [];
-
+    const files = req.files;
+    const {urls, public_ids} = uploadMultipleFiles(files, "translation");
     try {
-        const files = req.files;
-        for (const file of files) {
-            const {path} = file;
-            data = await uploadToCloudinary(path, "translation");
-
-            const {url, public_id} = data;
-            process.push(url);
-            public_ids.push(public_id);
-        }
-
         //     // creator: req.user._id
         translation = new Translation({
             article: req.body.article,
             characterDesign: req.body.characterDesign,
-            process: process,
+            process: urls,
             public_ids: public_ids,
         })
         await translation.save();

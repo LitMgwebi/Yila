@@ -5,6 +5,7 @@ import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
 import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
+import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 //#endregion
 
 //#region Router
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
     let animation = null;
 
     try {
-        animation = await Animation.find().sort({createdAt: 'desc'}).exec();
+        animation = await Animation.find().sort({ createdAt: 'desc' }).exec();
 
         res.status(200).send({
             animation: animation,
@@ -39,7 +40,7 @@ router.get('/list', async (req, res) => {
     const creatorId = req.query.creatorId;
 
     try {
-        animation = await Animation.find({ creator: creatorId }).sort({createdAt: 'desc'}).exec();
+        animation = await Animation.find({ creator: creatorId }).sort({ createdAt: 'desc' }).exec();
 
         res.status(200).send({
             animation: animation,
@@ -63,7 +64,7 @@ router.get('/index', requireAuth, async (req, res) => {
     const creator = req.user._id;
 
     try {
-        animation = await Animation.find({ creator }).sort({createdAt: 'desc'}).exec();
+        animation = await Animation.find({ creator }).sort({ createdAt: 'desc' }).exec();
 
         res.status(200).send({
             animation: animation,
@@ -112,30 +113,29 @@ router.post("/add", upload.fields([
     { name: "preview" }
 ]), async (req, res) => {
     let animation = null;
+    const movementFiles = req.files["movements"];
+    const effectFiles = req.files["effects"];
+    const backgroundFiles = req.files["backgrounds"];
+    const previewFile = req.files["preview"];
+
+    const { urls: movements, public_ids: movements_public_ids } = uploadMultipleFiles(movementFiles, "movements");
+    const { urls: preview, public_ids: preview_public_id } = uploadMultipleFiles(previewFile, "preview");
+    const { urls: effects, public_ids: effects_public_ids } = uploadMultipleFiles(effectFiles, "effects");
+    const { urls: backgrounds, public_ids: backgrounds_public_ids } = uploadMultipleFiles(backgroundFiles, "backgrounds");
 
     try {
-        const movementFiles = req.files["movements"];
-        const effectFiles = req.files["effects"];
-        const backgroundFiles = req.files["backgrounds"];
-        const previewFile = req.file["preview"];
-
-        const previewAnimation = await uploadToCloudinary(previewFile.path, "preview");
-        const { movements, movements_public_ids } = uploadMovements(movementFiles);
-        const { effects, effects_public_ids } = uploadEffects(effectFiles);
-        const { backgrounds, backgrounds_public_ids } = uploadBackgrounds(backgroundFiles);
-
         animation = new Animation({
             title: req.body.title,
             article: req.body.article,
-            preview: previewAnimation.url,
-            preview_public_id: previewAnimation.public_id,
+            preview: preview,
+            preview_public_id: preview_public_id,
             movements: movements,
             movements_public_ids: movements_public_ids,
             backgrounds: backgrounds,
             backgrounds_public_ids: backgrounds_public_ids,
             effects: effects,
             effects_public_ids: effects_public_ids,
-            creator: req.user._id
+            // creator: req.user._id
         });
 
         await animation.save();
@@ -146,6 +146,11 @@ router.post("/add", upload.fields([
             message: "New animation was added successfully",
         });
     } catch (error) {
+        await removeFromCloudinary(preview_public_id);
+        deletePublicIds(movements_public_ids);
+        deletePublicIds(backgrounds_public_ids);
+        deletePublicIds(effects_public_ids);
+
         log.error(error);
         res.status(400).send({
             animation: animation,
@@ -157,11 +162,11 @@ router.post("/add", upload.fields([
 //#endregion
 
 //#region DELETE
-router.delete("/:id", requireAuth, async function(req, res) {
+router.delete("/:id", requireAuth, async function (req, res) {
     let animation = null;
-    try{
+    try {
         animation = await Animation.findById(req.params.id);
-        
+
         await removeFromCloudinary(animation.preview_public_id);
         deletePublicIds(animation.movements_public_ids);
         deletePublicIds(animation.backgrounds_public_ids);
@@ -173,7 +178,7 @@ router.delete("/:id", requireAuth, async function(req, res) {
             error: null,
             message: "Amimation deleted successfully",
         });
-    }catch (error) {
+    } catch (error) {
         log.error(error);
         res.status(404).send({
             animation: animation,
@@ -187,57 +192,10 @@ router.delete("/:id", requireAuth, async function(req, res) {
 //#endregion
 
 //#region Helper Functions
-async function uploadMovements(files) {
-    const movements = [];
-    const movements_public_ids = [];
-
-    for (const file of files) {
-        const { path } = file;
-        const data = await uploadToCloudinary(path, "movements");
-
-        const { url, public_id } = data;
-
-        movements.push(url);
-        movements_public_ids.push(public_id);
-    }
-
-    return { movements, movements_public_ids }
-}
-async function uploadEffects(files) {
-    const effects = [];
-    const effects_public_ids = [];
-
-    for (const file of files) {
-        const { path } = file;
-        const data = await uploadToCloudinary(path, "effects");
-
-        const { url, public_id } = data;
-
-        effects.push(url);
-        effects_public_ids.push(public_id);
-    }
-
-    return { effects, effects_public_ids }
-}
-async function uploadBackgrounds(files) {
-    const backgrounds = [];
-    const backgrounds_public_ids = [];
-
-    for (const file of files) {
-        const { path } = file;
-        const data = await uploadToCloudinary(path, "backgrounds");
-
-        const { url, public_id } = data;
-
-        backgrounds.push(url);
-        backgrounds_public_ids.push(public_id);
-    }
-    return { backgrounds, backgrounds_public_ids }
-}
-async function deletePublicIds(public_ids){
-    for (let i = 0; i < public_ids.length; i++){
+async function deletePublicIds(public_ids) {
+    for (let i = 0; i < public_ids.length; i++) {
         const public_id = public_ids[i];
-        await removeFromCloudinary(public_id);    
+        await removeFromCloudinary(public_id);
     }
 }
 //#endregion

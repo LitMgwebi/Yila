@@ -37,15 +37,14 @@ function ConceptAdd() {
         }).then((res) => {
             setStatus(res.data.message)
             setLoad(false)
-
         }).catch((error) => {
-            console.error(error.response.data.error);
+            console.error(error.message);
             setStatus(error.response.data.error);
             setLoad(false)
 
         });
 
-        // navigate("/concept")
+        navigate("/concept")
     }
 
     return (

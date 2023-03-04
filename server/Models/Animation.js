@@ -32,10 +32,10 @@ const animationSchema = new Schema({
     effects_public_ids: {
         type: Array,
     },
-    creator: {
-        type: String,
-        required: true,
-    },
+    // creator: {
+    //     type: String,
+    //     required: true,
+    // },
 }, { timestamps: true });
 
 const Animation = model('Animation', animationSchema);

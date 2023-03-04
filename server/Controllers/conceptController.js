@@ -4,7 +4,8 @@ import Concept from "../Models/Concept.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
+import { removeFromCloudinary } from "../Services/cloudinary.js";
+import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 //#endregion
 
 //#region Router
@@ -103,24 +104,15 @@ router.get("/:id", async (req, res) => {
 //#region POST
 router.post('/add', upload.array("pieces"), async (req, res) => {
     let concept = null;
-    let data;
-    const photos = []
-    const public_ids = []
-    try {
-        const files = req.files;
-        for (const file of files) {
-            const { path } = file;
-            data = await uploadToCloudinary(path, "concept");
+    const files = req.files;
+    const { urls, public_ids } = uploadMultipleFiles(files, "concept");
 
-            const { url, public_id } = data;
-            photos.push(url);
-            public_ids.push(public_id);
-        }
+    try {
 
         concept = new Concept({
             title: req.body.title,
             article: req.body.article,
-            pieces: photos,
+            pieces: urls,
             public_ids: public_ids,
             // creator: req.user._id
         });

@@ -53,5 +53,5 @@ server.use('/user', userController);
 server.use('/concept', conceptController);
 server.use('/characterDesign', characterDesignController);
 server.use('/translation', translationController);
-
+server.use('/animation', animationController);
 //#endregion
