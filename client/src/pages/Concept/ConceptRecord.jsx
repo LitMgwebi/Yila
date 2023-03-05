@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 
 function ConceptRecord() {
     const location = useLocation();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const id = location.state.stateId;
     // const { user } = useAuthContext();
     const [payload, setPayload] = useState({
@@ -18,6 +18,7 @@ function ConceptRecord() {
     });
     const [load, setLoad] = useState(true);
     const [status, setStatus] = useState(null);
+    let pieces = null;
 
     useEffect(() => {
         axios({
@@ -42,7 +43,7 @@ function ConceptRecord() {
         })
     }, [id]);
 
-    const pieces = Array.from(payload.pieces);
+    pieces = Array.from(payload.pieces);
 
     const handleConfirm = () => {
         if (window.confirm("Are you sure you want to delete"))
@@ -51,7 +52,6 @@ function ConceptRecord() {
 
     async function handleDelete() {
         setLoad(true)
-
         try {
             const res = await axios({
                 method: "DELETE",
@@ -67,6 +67,7 @@ function ConceptRecord() {
             console.log(error.message);
             setLoad(false);
         }
+        navigate("/concept")
     }
 
     return (

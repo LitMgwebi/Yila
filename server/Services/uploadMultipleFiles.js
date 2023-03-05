@@ -9,11 +9,10 @@ async function uploadMultipleFiles(files, fileName){
         const data = await uploadToCloudinary(path, fileName);
 
         const {url, public_id} = data;
-
+        
         urls.push(url);
         public_ids.push(public_id);
     }
-
     return {urls, public_ids}
 }
 

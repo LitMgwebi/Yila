@@ -4,7 +4,7 @@ import Animation from "../Models/Animation.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
+import { removeFromCloudinary, uploadToCloudinary } from "../Services/cloudinary.js";
 import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 //#endregion
 
@@ -118,17 +118,17 @@ router.post("/add", upload.fields([
     const backgroundFiles = req.files["backgrounds"];
     const previewFile = req.files["preview"];
 
-    const { urls: movements, public_ids: movements_public_ids } = uploadMultipleFiles(movementFiles, "movements");
-    const { urls: preview, public_ids: preview_public_id } = uploadMultipleFiles(previewFile, "preview");
-    const { urls: effects, public_ids: effects_public_ids } = uploadMultipleFiles(effectFiles, "effects");
-    const { urls: backgrounds, public_ids: backgrounds_public_ids } = uploadMultipleFiles(backgroundFiles, "backgrounds");
+    const previewData = await uploadToCloudinary(previewFile[0].path, "preview");
+    const { urls: movements, public_ids: movements_public_ids } = await uploadMultipleFiles(movementFiles, "movements");
+    const { urls: effects, public_ids: effects_public_ids } = await uploadMultipleFiles(effectFiles, "effects");
+    const { urls: backgrounds, public_ids: backgrounds_public_ids } = await uploadMultipleFiles(backgroundFiles, "backgrounds");
 
     try {
         animation = new Animation({
             title: req.body.title,
             article: req.body.article,
-            preview: preview,
-            preview_public_id: preview_public_id,
+            preview: previewData.url,
+            preview_public_id: previewData.public_id,
             movements: movements,
             movements_public_ids: movements_public_ids,
             backgrounds: backgrounds,
@@ -138,6 +138,7 @@ router.post("/add", upload.fields([
             // creator: req.user._id
         });
 
+        
         await animation.save();
 
         res.status(201).send({
@@ -146,10 +147,10 @@ router.post("/add", upload.fields([
             message: "New animation was added successfully",
         });
     } catch (error) {
-        await removeFromCloudinary(preview_public_id);
-        deletePublicIds(movements_public_ids);
-        deletePublicIds(backgrounds_public_ids);
-        deletePublicIds(effects_public_ids);
+        await removeFromCloudinary(previewData.public_id);
+        await deletePublicIds(movements_public_ids);
+        await deletePublicIds(backgrounds_public_ids);
+        await deletePublicIds(effects_public_ids);
 
         log.error(error);
         res.status(400).send({
@@ -162,15 +163,15 @@ router.post("/add", upload.fields([
 //#endregion
 
 //#region DELETE
-router.delete("/:id", requireAuth, async function (req, res) {
+router.delete("/:id",  async function (req, res) {
     let animation = null;
     try {
         animation = await Animation.findById(req.params.id);
 
         await removeFromCloudinary(animation.preview_public_id);
-        deletePublicIds(animation.movements_public_ids);
-        deletePublicIds(animation.backgrounds_public_ids);
-        deletePublicIds(animation.effects_public_ids);
+        await deletePublicIds(animation.movements_public_ids);
+        await deletePublicIds(animation.backgrounds_public_ids);
+        await deletePublicIds(animation.effects_public_ids);
 
         await animation.remove();
 

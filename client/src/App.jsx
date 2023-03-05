@@ -13,6 +13,7 @@ import CharacterDesignRecord from "./pages/CharacterDesign/CharacterDesignRecord
 
 import AnimationIndex from "./pages/Animation/AnimationIndex";
 import AnimationAdd from "./pages/Animation/AnimationAdd";
+import AnimationRecord from "./pages/Animation/AnimationRecord";
 
 // import useLocalStorage from "use-local-storage";
 import {
@@ -43,6 +44,7 @@ function App() {
 
           <Route path="/animation" element={<AnimationIndex/>}/>
           <Route path="/animation/add" element={<AnimationAdd/>}/>
+          <Route path="/animation/:id" element={<AnimationRecord/>}/>
         </Routes>
       </BrowserRouter>
     </div>
