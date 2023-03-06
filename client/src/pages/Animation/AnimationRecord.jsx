@@ -1,7 +1,7 @@
 import AnimationTemplate from "../../components/pageStructure/AnimationTemplate";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "../../hooks/baseUrl";
 
@@ -68,23 +68,24 @@ function AnimationRecord() {
             setLoad(false);
             setStatus(error.response.data.error);
         });
+        navigate("/animation")
     }
     return (
         <div id="Record">
             <div className="controls">
+
+                <h2>{payload.title}</h2>
+                <div className="button-group">
+                    <Link to="/animation"><button className="btn btn-secondary">Back</button></Link>
+                    <button onClick={handleConfirm} className="btn btn-danger">
+                        Delete
+                    </button>
+                </div>
+
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
-
-
-                <div className="button-group">
-                    <button className="btn btn-secondary"><Link to="/animation/">Back</Link></button>
-                        <button onClick={handleConfirm} className="btn btn-danger">
-                            Delete
-                        </button>
-                </div>
             </div>
             <div className="information">
-                <h2>{payload.title}</h2>
                 <p>{payload.article}</p>
                 <img src={payload.preview} alt={payload.title} />
                 <AnimationTemplate payload={payload} />

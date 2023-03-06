@@ -1,4 +1,6 @@
 import Home from "./pages/Home/Home";
+import Header from "./components/pageStructure/Header";
+import Footer from "./components/pageStructure/Footer";
 
 import BackgroundIndex from "./pages/Background/BackgroundIndex";
 import FineArtIndex from "./pages/FineArt/FineArtIndex";
@@ -28,11 +30,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
 
           <Route path="/background" element={<BackgroundIndex/>}/>
-          <Route path="/fineArt" element={<FineArtIndex />}/>
+          <Route path="/fine-art" element={<FineArtIndex />}/>
 
           <Route path="/concept" element={<ConceptIndex/>}/>
           <Route path="/concept/:id" element={<ConceptRecord />}/>  
@@ -46,6 +49,7 @@ function App() {
           <Route path="/animation/add" element={<AnimationAdd/>}/>
           <Route path="/animation/:id" element={<AnimationRecord/>}/>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

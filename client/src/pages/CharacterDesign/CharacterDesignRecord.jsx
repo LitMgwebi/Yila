@@ -42,7 +42,7 @@ function CharacterDesignRecord() {
         axios({
             method: "GET",
             url: `${baseUrl}/translation/`,
-            params:{
+            params: {
                 characterDesign: id
             }
         }).then((res) => {
@@ -76,28 +76,26 @@ function CharacterDesignRecord() {
         }).then((res) => {
             setLoad(false);
             setStatus(res.data.message);
-            navigate("/character-design")
         }).catch((error) => {
             console.error(error.message);
             setLoad(false);
             setStatus(error.response.data.error);
         });
+        navigate("/character-design")
     }
 
     return (
         <div id="Record">
             <div className="section">
                 <h2 id="ProjectHeader">{payload.nameOfCharacter}</h2>
-
-                {status && <div className="status">{status}</div>}
-                {load && <div>Loading...</div>}
-
                 <div className="button-group">
                     <Link to="/portfolio/character-design/"><button className="btn btn-secondary">Back</button></Link>
-                        <button onClick={handleConfirm} className="btn btn-danger">
-                            Delete
-                        </button>
+                    <button onClick={handleConfirm} className="btn btn-danger">
+                        Delete
+                    </button>
                 </div>
+                {status && <div className="status">{status}</div>}
+                {load && <div>Loading...</div>}
             </div>
 
             <div className="information">

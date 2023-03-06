@@ -52,11 +52,11 @@ function AnimationAdd() {
             setLoad(false)
             console.error(error.message);
         })
-        // navigate("/animation")
+        navigate("/animation")
     }
     return (
         <div id="Add">
-            <ProjectHeader header="Add Animation" link="/portfolio/animation" />
+            <ProjectHeader header="Add Animation" link="/animation" />
             <form onSubmit={handleSubmit} encType='multipart/form-data'>
                 <div className="formInput">
                     <div className="singleLineInput">
@@ -127,7 +127,7 @@ function AnimationAdd() {
                     {status && <div className="status">{status}</div>}
                     <div className="button-group">
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        <button className='btn btn-secondary'><Link to="/concept">Cancel</Link></button>
+                        <Link to="/concept"><button className='btn btn-secondary'>Cancel</button></Link>
                     </div>
                 </div>
             </form>

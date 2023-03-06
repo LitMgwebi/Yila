@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import TranslationAdd from "./Translation/TranslationAdd";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import baseUrl from "../../hooks/baseUrl";
@@ -12,6 +12,7 @@ function CharacterDesignAdd() {
     const [originalCharacter, setOriginalCharacter] = useState("");
     const [showButton, setShowButton] = useState(false);
     const [id, setId] = useState(null);
+    const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -43,7 +44,7 @@ function CharacterDesignAdd() {
             setStatus(error.response.data.error);
             setLoad(false)
         });
-
+        navigate("/character-design");
     }
     return (
         <div id="Add">

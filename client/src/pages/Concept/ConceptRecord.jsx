@@ -73,8 +73,6 @@ function ConceptRecord() {
     return (
         <div id="Record">
             <div className="section">
-                {status && <div className="status">{status}</div>}
-                {load && <div>Loading...</div>}
 
                 <h2>{payload.title}</h2>
 
@@ -84,6 +82,8 @@ function ConceptRecord() {
                         Delete
                     </button>
                 </div>
+                {status && <div className="status">{status}</div>}
+                {load && <div>Loading...</div>}
             </div>
 
             <div className="information">

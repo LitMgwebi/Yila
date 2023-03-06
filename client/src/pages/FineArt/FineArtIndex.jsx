@@ -32,7 +32,7 @@ function FineArtIndex() {
     return (
         <div id="Index">
             <div className="section">
-                <ProjectHeader header="Fine Art" link="/portfolio" />
+                <ProjectHeader header="Fine Art" link="/" />
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
             </div>

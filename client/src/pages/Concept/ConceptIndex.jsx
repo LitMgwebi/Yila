@@ -31,7 +31,7 @@ function ConceptIndex() {
     return (
         <div id="Index">
             <div className="section">
-                <ProjectHeader header="Concept Art" link="/concept" />
+                <ProjectHeader header="Concept Art" link="/" />
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
                 <div className="button-group">

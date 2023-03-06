@@ -33,7 +33,7 @@ function BackgroundIndex() {
     return (
         <div id="Index">
             <div className="section">
-                <ProjectHeader header="Background Art" link="/portfolio" />
+                <ProjectHeader header="Background Art" link="/" />
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
             </div>
