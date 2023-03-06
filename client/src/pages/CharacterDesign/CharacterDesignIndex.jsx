@@ -1,33 +1,10 @@
 import CharacterDesignCard from "../../components/Cards/CharacterDesignCard";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useState, useEffect } from "react";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
-import baseUrl from "../../hooks/baseUrl";
+import useGet from "../../hooks/useGet";
 
 function CharacterDesignIndex() {
-    const [payloads, setPayloads] = useState(null);
-    const [load, setLoad] = useState(true);
-    const [status, setStatus] = useState(null);
-
-    useEffect(() => {
-        axios({
-            method: "GET",
-            url: `${baseUrl}/characterDesign`
-        }).then((res) => {
-            if (res.data.characterDesign.length > 0) {
-                setPayloads(res.data.characterDesign);
-                setStatus(res.data.message);
-            } else {
-                setStatus("There are no entries in the database")
-            }
-            setLoad(false);
-        }).catch((error) => {
-            setLoad(false);
-            console.log(error.message);
-            setStatus(error.response.data.error);
-        });
-    });
+    const {payloads, status, load} = useGet("characterDesign")
     return (
         <div id="Index">
             <div className="section">

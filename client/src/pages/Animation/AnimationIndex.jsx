@@ -1,33 +1,10 @@
 import AnimationCard from "../../components/Cards/AnimationCard";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import { Link } from "react-router-dom";
-import baseUrl from "../../hooks/baseUrl";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import useGet from "../../hooks/useGet";
 
 function AnimationIndex() {
-    const [payloads, setPayloads] = useState(null);
-    const [load, setLoad] = useState(true);
-    const [status, setStatus] = useState(null);
-
-    useEffect(() => {
-        axios({
-            method: "GET",
-            url: `${baseUrl}/animation`
-        }).then((res) => {
-            if (res.data.animation.length > 0) {
-                setPayloads(res.data.animation);
-                setStatus(res.data.message);
-            } else {
-                setStatus("There are no entries in the database")
-            }
-            setLoad(false);
-        }).catch((error) => {
-            setStatus(error.response.data.error);
-            setLoad(false);
-            console.error(error.message);
-        });
-    }, []);
+    const {payloads, status, load} = useGet("animation")
     return (
         <div id="Index">
             <div className="section">
