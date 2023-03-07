@@ -2,6 +2,7 @@ import ConceptCard from "../../components/Cards/ConceptCard";
 import { Link } from "react-router-dom";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import useGet from "../../hooks/useGet";
+import InformationTemplate from "../../components/pageStructure/InformationTemplate";
 
 function ConceptIndex() {
     const {payloads, status, load} = useGet("concept")
@@ -15,14 +16,8 @@ function ConceptIndex() {
                     <button className="btn btn-light"><Link to="/concept/add">+</Link></button>
                 </div>
             </div>
-            <div className="information">
-                {payloads ? payloads.map((payload, i) => {
-                    return (
-                        <ConceptCard payload={payload} />
-                    );
-                })
-                    : <div className="information">Whole lot of nothing</div>}
-            </div>
+
+            <InformationTemplate payloads={payloads} Card={ConceptCard}/>
         </div>
     );
 }

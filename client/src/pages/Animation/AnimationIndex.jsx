@@ -2,6 +2,7 @@ import AnimationCard from "../../components/Cards/AnimationCard";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import { Link } from "react-router-dom";
 import useGet from "../../hooks/useGet";
+import InformationTemplate from "../../components/pageStructure/InformationTemplate";
 
 function AnimationIndex() {
     const {payloads, status, load} = useGet("animation")
@@ -15,14 +16,7 @@ function AnimationIndex() {
                     <button className="btn btn-light"><Link to="/animation/add">+</Link></button>
                 </div>
             </div>
-            <div className="information">
-                {payloads === null ? <div className="information">Whole lot of nothing</div>
-                    : payloads.map((payload, i) => {
-                        return (
-                            <AnimationCard payload={payload} />
-                        );
-                    })}
-            </div>
+            <InformationTemplate payloads={payloads} Card={AnimationCard}/>
         </div>
     );
 }

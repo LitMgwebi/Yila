@@ -2,6 +2,7 @@ import CharacterDesignCard from "../../components/Cards/CharacterDesignCard";
 import { Link } from "react-router-dom";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import useGet from "../../hooks/useGet";
+import InformationTemplate from "../../components/pageStructure/InformationTemplate";
 
 function CharacterDesignIndex() {
     const {payloads, status, load} = useGet("characterDesign")
@@ -15,14 +16,7 @@ function CharacterDesignIndex() {
                     <button className="btn btn-light"><Link to="/character-design/add">+</Link></button>
                 </div>
             </div>
-            <div className="information">
-                {payloads === null ? <div className="information">Whole lot of nothing</div>
-                    : payloads.map((payload, i) => {
-                        return (
-                            <CharacterDesignCard payload={payload} />
-                        );
-                    })}
-            </div>
+            <InformationTemplate payloads={payloads} Card={CharacterDesignCard}/>
         </div>
     )
 
