@@ -22,12 +22,12 @@ function TranslationIndex({ payload }) {
                 // 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
+            setStatus(res.data.message);
             setLoad(false);
-            setStatus(null);
         }).catch((error) => {
+            setStatus(error.response.data.error);
             console.error(error.message);
             setLoad(false);
-            setStatus(error.response.data.error);
         });
     }
     return (

@@ -1,29 +1,55 @@
-import { Link } from "react-router-dom";
+import HomeNav from "../../components/pageStructure/HomeNav";
+import CharacterDesignCard from "../../components/Cards/CharacterDesignCard";
+import AnimationCard from "../../components/Cards/AnimationCard";
+import BackgroundCard from "../../components/Cards/BackgroundCard";
+import FineArtCard from "../../components/Cards/FineArtCard";
+import useGet from "../../hooks/useGet";
+import ConceptCard from "../../components/Cards/ConceptCard";
+import LatestPiecesTemplate from "../../components/Forms/LatestPiecesTemplate";
 
 function Home() {
+    const { payloads: animationPayloads, load: animationLoad } = useGet("animation")
+    const { payloads: backgroundPayloads, load: backgroundLoad } = useGet("background")
+    const { payloads: fineArtPayloads, load: fineArtLoad } = useGet("fineArt")
+    const { payloads: conceptPayloads, load: conceptLoad } = useGet("concept")
+    const { payloads: cdPayloads, load: cdLoad } = useGet("characterDesign")
     return (
         <div id="Home">
-            <nav>
-                <button>
-                    <Link to="/artists">Artists</Link>
-                </button>
-                <button>
-                    <Link to="/fine-art">Fine Art</Link>
-                </button>
-                <button>
-                    <Link to="/character-design">Character Design</Link>
-                </button>
-                <button>
-                    <Link to="/animation">Animation</Link>
-                </button>
-                <button>
-                    <Link to="/concept">Concept</Link>
-                </button>
-                <button>
-                    <Link to="/background">Background</Link>
-                </button>
+            <HomeNav />
 
-            </nav>
+            <div></div>
+            <div className="homePiecesDisplay">
+                <LatestPiecesTemplate
+                    payloads={conceptPayloads}
+                    Card={ConceptCard}
+                    categoryName="Concept"
+                    load={conceptLoad}
+                />
+                <LatestPiecesTemplate
+                    payloads={cdPayloads}
+                    Card={CharacterDesignCard}
+                    categoryName="Character Design"
+                    load={cdLoad}
+                />
+                <LatestPiecesTemplate
+                    payloads={animationPayloads}
+                    Card={AnimationCard}
+                    categoryName="Animation"
+                    load={animationLoad}
+                />
+                <LatestPiecesTemplate
+                    payloads={backgroundPayloads}
+                    Card={BackgroundCard}
+                    categoryName="Background"
+                    load={backgroundLoad}
+                />
+                <LatestPiecesTemplate
+                    payloads={fineArtPayloads}
+                    Card={FineArtCard}
+                    categoryName="Fine Art"
+                    load={fineArtLoad}
+                />
+            </div>
         </div>
     )
 }

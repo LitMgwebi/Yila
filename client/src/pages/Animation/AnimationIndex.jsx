@@ -2,7 +2,7 @@ import AnimationCard from "../../components/Cards/AnimationCard";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import { Link } from "react-router-dom";
 import useGet from "../../hooks/useGet";
-import InformationTemplate from "../../components/pageStructure/InformationTemplate";
+import InformationTemplate from "../../components/Forms/InformationTemplate";
 
 function AnimationIndex() {
     const {payloads, status, load} = useGet("animation")

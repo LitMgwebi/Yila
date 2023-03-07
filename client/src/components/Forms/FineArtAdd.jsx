@@ -46,13 +46,12 @@ function FineArtAdd() {
             });
             setStatus(res.data.message);
             setLoad(false)
+            window.location.reload(false)
         }catch(error){
             setStatus(error.response.data.error);
             console.error(error.message);
             setLoad(false)
         }
-
-        window.location.reload(false)
     }
     return (
         <form onSubmit={handleSubmit} encType='multipart/form-data'>

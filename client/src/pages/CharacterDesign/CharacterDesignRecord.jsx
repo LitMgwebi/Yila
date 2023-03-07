@@ -74,12 +74,12 @@ function CharacterDesignRecord() {
                 // 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
-            setLoad(false);
             setStatus(res.data.message);
+            setLoad(false);
         }).catch((error) => {
+            setStatus(error.response.data.error);
             console.error(error.message);
             setLoad(false);
-            setStatus(error.response.data.error);
         });
         navigate("/character-design")
     }

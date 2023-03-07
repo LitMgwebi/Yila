@@ -1,4 +1,4 @@
-import AnimationTemplate from "../../components/pageStructure/AnimationTemplate";
+import AnimationTemplate from "../../components/Forms/AnimationTemplate";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
@@ -61,12 +61,12 @@ function AnimationRecord() {
                 // 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
+            setStatus(res.data.message)
             setLoad(false);
-            navigate("/animation")
         }).catch((error) => {
+            setStatus(error.response.data.error);
             console.error(error.message);
             setLoad(false);
-            setStatus(error.response.data.error);
         });
         navigate("/animation")
     }

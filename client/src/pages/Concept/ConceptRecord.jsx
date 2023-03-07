@@ -77,7 +77,7 @@ function ConceptRecord() {
                 <h2>{payload.title}</h2>
 
                 <div className="button-group">
-                    <Link to="/portfolio/concept/"><button className="btn btn-secondary">Back</button></Link>
+                    <Link to="/concept/"><button className="btn btn-secondary">Back</button></Link>
                     <button onClick={handleConfirm} className="btn btn-danger">
                         Delete
                     </button>

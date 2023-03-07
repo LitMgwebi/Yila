@@ -47,12 +47,12 @@ function AnimationAdd() {
         }).then((res) => {
             setStatus(res.data.message)
             setLoad(false)
+            navigate("/animation");
         }).catch((error) => {
             setStatus(error.response.data.error);
             setLoad(false)
             console.error(error.message);
         })
-        navigate("/animation")
     }
     return (
         <div id="Add">

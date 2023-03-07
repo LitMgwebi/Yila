@@ -2,7 +2,7 @@ import CharacterDesignCard from "../../components/Cards/CharacterDesignCard";
 import { Link } from "react-router-dom";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import useGet from "../../hooks/useGet";
-import InformationTemplate from "../../components/pageStructure/InformationTemplate";
+import InformationTemplate from "../../components/Forms/InformationTemplate";
 
 function CharacterDesignIndex() {
     const {payloads, status, load} = useGet("characterDesign")

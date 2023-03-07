@@ -1,6 +1,6 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
 import { useState } from "react";
-import Slider from "./Slider";
+import Slider from "../pageStructure/Slider";
 
 function AnimationTemplate({ payload }) {
     const [expanded, setExpanded] = useState(false);
