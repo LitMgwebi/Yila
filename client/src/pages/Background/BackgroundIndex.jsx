@@ -1,5 +1,4 @@
 import BackgroundCard from "../../components/Cards/BackgroundCard";
-import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import { Card } from "@material-ui/core";
 import BackgroundAdd from "../../components/Forms/BackgroundAdd";
 import useGet from "../../hooks/useGet";
@@ -10,7 +9,7 @@ function BackgroundIndex() {
     return (
         <div id="Index">
             <div className="section">
-                <ProjectHeader header="Background Art" link="/" />
+                <h1>Background</h1>
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
             </div>

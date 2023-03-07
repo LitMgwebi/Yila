@@ -1,5 +1,4 @@
 import AnimationCard from "../../components/Cards/AnimationCard";
-import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import { Link } from "react-router-dom";
 import useGet from "../../hooks/useGet";
 import InformationTemplate from "../../components/Forms/InformationTemplate";
@@ -9,7 +8,7 @@ function AnimationIndex() {
     return (
         <div id="Index">
             <div className="section">
-                <ProjectHeader header="Animation Art" link="/" />
+                <h1>Animation</h1>
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
                 <div className="addButton">

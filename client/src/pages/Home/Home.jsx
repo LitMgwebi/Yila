@@ -24,30 +24,35 @@ function Home() {
                     Card={ConceptCard}
                     categoryName="Concept"
                     load={conceptLoad}
+                    link="/concept"
                 />
                 <LatestPiecesTemplate
                     payloads={cdPayloads}
                     Card={CharacterDesignCard}
                     categoryName="Character Design"
                     load={cdLoad}
+                    link="/character-design"
                 />
                 <LatestPiecesTemplate
                     payloads={animationPayloads}
                     Card={AnimationCard}
                     categoryName="Animation"
                     load={animationLoad}
+                    link="/animation"
                 />
                 <LatestPiecesTemplate
                     payloads={backgroundPayloads}
                     Card={BackgroundCard}
                     categoryName="Background"
                     load={backgroundLoad}
+                    link="/background"
                 />
                 <LatestPiecesTemplate
                     payloads={fineArtPayloads}
                     Card={FineArtCard}
                     categoryName="Fine Art"
                     load={fineArtLoad}
+                    link="fine-art"
                 />
             </div>
         </div>

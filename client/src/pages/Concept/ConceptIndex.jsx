@@ -1,6 +1,5 @@
 import ConceptCard from "../../components/Cards/ConceptCard";
 import { Link } from "react-router-dom";
-import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import useGet from "../../hooks/useGet";
 import InformationTemplate from "../../components/Forms/InformationTemplate";
 
@@ -9,7 +8,7 @@ function ConceptIndex() {
     return (
         <div id="Index">
             <div className="section">
-                <ProjectHeader header="Concept Art" link="/" />
+                <h1>Concept Art</h1>
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
                 <div className="button-group">

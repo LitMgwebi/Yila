@@ -1,16 +1,21 @@
-function LatestPiecesTemplate({ payloads, Card, categoryName, load }) {
+import { Link } from "react-router-dom";
+
+function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
     return (
-        <div>
-            <span>Latest {categoryName} Pieces</span>
+        <div className="latest">
+            <div className="latestPiecesHeader">
+                <h4>Latest {categoryName} Pieces</h4>
+            </div>
             <div className="latestPieces">
-                
-                {load ? <div className="latestPieces">Loading...</div> 
-                : payloads ? payloads.map((payload, i) => {
-                    return (
-                        <Card payload={payload} />
+                {load ? <div>Loading...</div>
+                    : payloads ? payloads.map((payload, i) => {
+                        return (
+                            <Card payload={payload} />
                         );
                     })
-                : <div className="latestPieces">Whole lot of nothing</div>}
+                        : <div>Whole lot of nothing</div>}
+
+                <Link to={link}>See More...</Link>
             </div>
         </div>
     )

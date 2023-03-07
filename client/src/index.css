@@ -1,6 +1,7 @@
 body {  
   display: flex;
-  width:100%;
+  width:100vw;
+  background-color: khaki;
   overflow-y: auto;
   justify-content: center;
   margin: 0;
@@ -16,11 +17,41 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.App{
+  text-align: center;
+  width: 100vw;
+}
+
+/* Latest */
+.latest {
+  display: flex;
+  margin: 2rem 0;
+  height: 18rem;
+  flex-flow: row nowrap;
+}
+.latestPiecesHeader{
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.latestPieces{
+  width: 70%;
+  border-radius: 1rem;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
 
 /* Cards*/
 .card{
   width: 12rem;
-  height: 15rem
+  height: 15rem;
+  margin: 2rem;
 }
 .cardHeader{
   height: 20%;
