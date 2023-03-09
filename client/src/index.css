@@ -62,3 +62,11 @@ code {
 .cardMedia {
   height: 80%
 }
+
+/* AddCard Forms*/
+.createCard{
+  padding:1rem;
+  margin: auto;
+  width: 30%;
+  height: auto;
+}

@@ -8,7 +8,23 @@ cloudinary.config({
 });
 
 const uploadToCloudinary = (path, folder) => {
-    return cloudinary.uploader.upload(path, { folder })
+    return cloudinary.uploader
+        .upload(path, {
+            folder: folder,
+        })
+        .then((data) => {
+            return { url: data.url, public_id: data.public_id };
+        }).catch((error) => {
+            log.error(error);
+        });
+}
+
+const uploadVideo = (path, folder) => {
+    return cloudinary.uploader
+        .upload(path, {
+            folder: folder,
+            resource_type: "video",
+        })
         .then((data) => {
             return { url: data.url, public_id: data.public_id };
         }).catch((error) => {
@@ -22,4 +38,4 @@ const removeFromCloudinary = async (public_id) => {
     });
 }
 
-export { uploadToCloudinary, removeFromCloudinary };
+export { uploadToCloudinary, removeFromCloudinary, uploadVideo };

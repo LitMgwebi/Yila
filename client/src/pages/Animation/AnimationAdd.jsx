@@ -73,7 +73,7 @@ function AnimationAdd() {
                         <label>Preview:</label>
                         <input
                             type="file"
-                            accept="image/*"
+                            accept="video/*"
                             name="preview"
                             required
                             onChange={(e) => setPreview(e.target.files[0])}
@@ -127,7 +127,7 @@ function AnimationAdd() {
                     {status && <div className="status">{status}</div>}
                     <div className="button-group">
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        <Link to="/concept"><button className='btn btn-secondary'>Cancel</button></Link>
+                        <Link to="/animation"><button className='btn btn-secondary'>Cancel</button></Link>
                     </div>
                 </div>
             </form>

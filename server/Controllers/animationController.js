@@ -4,7 +4,7 @@ import Animation from "../Models/Animation.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import { removeFromCloudinary, uploadToCloudinary } from "../Services/cloudinary.js";
+import { removeFromCloudinary, uploadToCloudinary, uploadVideo } from "../Services/cloudinary.js";
 import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 //#endregion
 
@@ -110,7 +110,7 @@ router.post("/add", upload.fields([
     { name: 'movements' },
     { name: 'backgrounds' },
     { name: 'effects' },
-    { name: "preview" }
+    { name: 'preview' }
 ]), async (req, res) => {
     let animation = null;
     const movementFiles = req.files["movements"];
@@ -118,7 +118,7 @@ router.post("/add", upload.fields([
     const backgroundFiles = req.files["backgrounds"];
     const previewFile = req.files["preview"];
 
-    const previewData = await uploadToCloudinary(previewFile[0].path, "preview");
+    const previewData = await uploadVideo(previewFile[0].path, "preview");
     const { urls: movements, public_ids: movements_public_ids } = await uploadMultipleFiles(movementFiles, "movements");
     const { urls: effects, public_ids: effects_public_ids } = await uploadMultipleFiles(effectFiles, "effects");
     const { urls: backgrounds, public_ids: backgrounds_public_ids } = await uploadMultipleFiles(backgroundFiles, "backgrounds");

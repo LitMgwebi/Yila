@@ -55,9 +55,7 @@ function FineArtAdd() {
     }
     return (
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
-
             <h3>Add Fine art</h3>
-
             <div className="cardForm">
 
                 <div>

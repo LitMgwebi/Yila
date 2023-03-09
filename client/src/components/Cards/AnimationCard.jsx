@@ -12,16 +12,12 @@ function AnimationCard({ payload }) {
                     <h4>{payload.title}</h4>
                 </div>
                 <CardMedia
-                    component="img"
+                    component="video"
                     alt={payload.title}
                     image={payload.preview}
                     className="cardMedia"
-                    // autoPlay
+                    autoPlay
                 />
-                {/* <div>
-
-                <img src={payload.preview} alt={payload.title} />
-                </div> */}
             </Link>
         </Card>
     );
