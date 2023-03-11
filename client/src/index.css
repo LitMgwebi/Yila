@@ -22,6 +22,33 @@ code {
   width: 100vw;
 }
 
+/*Header*/
+#Header{
+  height: 9vh;
+  width: 100%;
+  padding: 0 10%;
+}
+
+/*Index*/
+#Index{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.information{
+  background-color: whitesmoke;
+  margin: 1rem;
+  width: 100%;
+  min-height: 20rem;
+  overflow-x: auto;
+  height:auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Latest */
 .latest {
   display: flex;
@@ -45,7 +72,9 @@ code {
   flex-direction: row;
   overflow-x: scroll;
 }
-
+.seeMore{
+  margin: 2rem
+}
 
 /* Cards*/
 .card{
@@ -69,4 +98,13 @@ code {
   margin: auto;
   width: 30%;
   height: auto;
+}
+
+/*Footer*/
+#Footer{
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }

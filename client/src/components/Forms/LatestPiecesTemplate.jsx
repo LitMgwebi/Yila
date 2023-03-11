@@ -15,7 +15,7 @@ function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
                     })
                         : <div>Whole lot of nothing</div>}
 
-                <Link to={link}>See More...</Link>
+                <Link to={link} className="seeMore">See More...</Link>
             </div>
         </div>
     )
