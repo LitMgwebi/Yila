@@ -17,6 +17,8 @@ import AnimationIndex from "./pages/Animation/AnimationIndex";
 import AnimationAdd from "./pages/Animation/AnimationAdd";
 import AnimationRecord from "./pages/Animation/AnimationRecord";
 
+import Login from "./pages/User/Login";
+import Signup from "./pages/User/Signup";
 // import useLocalStorage from "use-local-storage";
 import {
   BrowserRouter,
@@ -33,6 +35,9 @@ function App() {
         <Header/>
         <Routes>
           <Route path="/" element={<Home />} />
+
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<Signup />} />
 
           <Route path="/background" element={<BackgroundIndex/>}/>
           <Route path="/fine-art" element={<FineArtIndex />}/>

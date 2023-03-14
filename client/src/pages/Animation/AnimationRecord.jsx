@@ -53,7 +53,7 @@ function AnimationRecord() {
 
     function handleDelete() {
         setLoad(true);
-        setStatus(null)
+        
         axios({
             method: "DELETE",
             url: `${baseUrl}/animation/${id}`,
