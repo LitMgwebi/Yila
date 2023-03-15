@@ -7,15 +7,21 @@ function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
                 <h4>Latest {categoryName} Pieces</h4>
             </div>
             <div className="latestPieces">
-                {load ? <div>Loading...</div>
-                    : payloads ? payloads.map((payload, i) => {
-                        return (
-                            <Card payload={payload} />
-                        );
-                    })
-                        : <div>Whole lot of nothing</div>}
+                {load ? 
+                    <div>Loading...</div>
+                : payloads ?
+                    <div className="latestPieces">
+                        {payloads.map((payload, i) => {
+                            return (
+                                <Card payload={payload} />
+                            );
+                        })}
+                        <Link to={link} className="seeMore">See More...</Link>
+                    </div>
+                : <div>Whole lot of nothing</div>
+                }
 
-                <Link to={link} className="seeMore">See More...</Link>
+                {/* <Link to={link} className="seeMore">See More...</Link> */}
             </div>
         </div>
     )

@@ -72,11 +72,11 @@ router.post('/login', async(req, res)=> {
 
 //#region Signup Route
 router.post('/signup', upload.single("profilePhoto"), async(req, res)=> {
-    const {email, password, firstName, lastName, DOB} = req.body;
+    const {email, password, firstName, lastName, DOB, profilePhoto} = req.body;
+    
+    const data = await uploadToCloudinary(req.file.path, "user");
 
     try{
-        const data = await uploadToCloudinary(req.file.path, "user");
-
         const profilePhoto = data.url;
         const public_id = data.public_id;
 
@@ -84,6 +84,7 @@ router.post('/signup', upload.single("profilePhoto"), async(req, res)=> {
         const token = createToken(user._id);
         res.status(200).send({email, token, message:"Signed up"});
     }catch(error){
+        await removeFromCloudinary(data.public_id);
         res.status(400).send({error: error.message});
     }
 })

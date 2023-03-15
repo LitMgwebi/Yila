@@ -10,19 +10,18 @@ export const useSignup = () => {
     const { dispatch } = useAuthContext();
     const navigate = useNavigate();
 
-    const signup = async (email, password) => {
+    const signup = async (data) => {
         setLoad(true);
         setStatus(null);
-
-        const userData = JSON.stringify({ email, password });
 
         try {
             const res = await axios({
                 method: 'POST',
                 url: `${baseUrl}/user/signup`,
-                data: userData,
+                data: data,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'accept': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 }
             });
 
