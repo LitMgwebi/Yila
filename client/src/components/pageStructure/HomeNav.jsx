@@ -4,7 +4,7 @@ function HomeNav() {
     return (
         <nav>
             <button>
-                <Link to="/artists">Artists</Link>
+                <Link to="/artist">Artists</Link>
             </button>
             <button>
                 <Link to="/fine-art">Fine Art</Link>

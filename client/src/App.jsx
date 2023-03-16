@@ -17,6 +17,9 @@ import AnimationIndex from "./pages/Animation/AnimationIndex";
 import AnimationAdd from "./pages/Animation/AnimationAdd";
 import AnimationRecord from "./pages/Animation/AnimationRecord";
 
+import ArtistIndex from "./pages/Artist/ArtistIndex";
+import Dashboard from "./pages/Artist/Dashboard";
+
 import Login from "./pages/User/Login";
 import Signup from "./pages/User/Signup";
 // import useLocalStorage from "use-local-storage";
@@ -53,6 +56,10 @@ function App() {
           <Route path="/animation" element={<AnimationIndex/>}/>
           <Route path="/animation/add" element={<AnimationAdd/>}/>
           <Route path="/animation/:id" element={<AnimationRecord/>}/>
+
+          <Route path="/artist" element={<ArtistIndex/>}/>
+          <Route path="/artist/:id" element={<Dashboard/>}/>
+
         </Routes>
         <Footer />
       </BrowserRouter>

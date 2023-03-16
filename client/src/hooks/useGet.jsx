@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "./baseUrl";
 
-function useGet(dest){
-        const [payloads, setPayloads] = useState(null);
+function useGet(dest) {
+    const [payloads, setPayloads] = useState(null);
     const [load, setLoad] = useState(true);
     const [status, setStatus] = useState(null);
 
@@ -26,7 +26,7 @@ function useGet(dest){
         });
     }, [dest]);
 
-    return {payloads, status, load}
+    return { payloads, status, load }
 }
 
 export default useGet;
