@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link } from "react-router-dom";
 import TranslationAdd from "./Translation/TranslationAdd";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import baseUrl from "../../hooks/baseUrl";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function CharacterDesignAdd() {
     const [load, setLoad] = useState(false)
@@ -12,7 +13,7 @@ function CharacterDesignAdd() {
     const [originalCharacter, setOriginalCharacter] = useState("");
     const [showButton, setShowButton] = useState(false);
     const [id, setId] = useState(null);
-    const navigate = useNavigate();
+    const { user } = useAuthContext();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -31,7 +32,7 @@ function CharacterDesignAdd() {
             headers: {
                 'accept': 'application/json',
                 'Content-Type': `multipart/form-data`,
-                // 'Authorization': `Bearer ${user.token}`,
+                'Authorization': `Bearer ${user.token}`,
             }
         }).then((res) => {
             setStatus(res.data.message)
@@ -44,7 +45,6 @@ function CharacterDesignAdd() {
             setStatus(error.response.data.error);
             setLoad(false)
         });
-        // navigate("/character-design");
     }
     return (
         <div id="Add">

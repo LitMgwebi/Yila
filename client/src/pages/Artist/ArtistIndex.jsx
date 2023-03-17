@@ -1,4 +1,4 @@
-import useGet from "../../hooks/useGet";
+import {useGet} from "../../hooks/useGet";
 import InformationTemplate from "../../components/Forms/InformationTemplate";
 import ArtistCard from "../../components/Cards/ArtistCard";
 

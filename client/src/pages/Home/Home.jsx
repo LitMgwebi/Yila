@@ -3,7 +3,7 @@ import CharacterDesignCard from "../../components/Cards/CharacterDesignCard";
 import AnimationCard from "../../components/Cards/AnimationCard";
 import BackgroundCard from "../../components/Cards/BackgroundCard";
 import FineArtCard from "../../components/Cards/FineArtCard";
-import useGet from "../../hooks/useGet";
+import {useGet} from "../../hooks/useGet";
 import ConceptCard from "../../components/Cards/ConceptCard";
 import LatestPiecesTemplate from "../../components/Forms/LatestPiecesTemplate";
 

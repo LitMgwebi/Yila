@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import baseUrl from "../../hooks/baseUrl";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function BackgroundAdd() {
     const [title, setTitle] = useState("");
     const [piece, setPiece] = useState("");
     const [status, setStatus] = useState(null)
     const [load, setLoad] = useState(false);
+    const { user } = useAuthContext();
 
     function handleCancel(e) {
         e.preventDefault();
@@ -32,7 +34,7 @@ function BackgroundAdd() {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'multipart/form-data',
-                    // 'Authorization': `Bearer ${user.token}`,
+                    'Authorization': `Bearer ${user.token}`,
                 }
             });
 

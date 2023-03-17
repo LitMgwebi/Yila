@@ -103,7 +103,7 @@ router.get('/:id', async (req, res) => {
 //#endregion
 
 //#region POST
-router.post('/add', upload.single('originalCharacter'), async (req, res) => {
+router.post('/add', upload.single('originalCharacter'), requireAuth, async (req, res) => {
     let cd = null;
     let data = null;
     try {
@@ -113,7 +113,7 @@ router.post('/add', upload.single('originalCharacter'), async (req, res) => {
             nameOfCharacter: req.body.nameOfCharacter,
             originalCharacter: data.url,
             public_id: data.public_id,
-            // creator: req.user._id
+            creator: req.user._id
         });
         await cd.save();
         res.status(201).send({
@@ -135,7 +135,7 @@ router.post('/add', upload.single('originalCharacter'), async (req, res) => {
 //#endregion
 
 //#region DELETE
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     let cd = null
     try {
         cd = await CharacterDesign.findById(req.params.id);

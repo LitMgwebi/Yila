@@ -64,7 +64,7 @@ function Dashboard() {
                 <div className="dashboardInformation">
                     <p>{payload.DOB}</p>
 
-                    <DashboardTemplate payload={payload}/>
+                    {/* <DashboardTemplate/> */}
                 </div>
             </div>
         </div>

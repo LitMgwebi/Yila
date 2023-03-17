@@ -4,7 +4,7 @@ import Animation from "../Models/Animation.js";
 import { Router } from "express";
 import requireAuth from "../Middleware/requireAuth.js";
 import upload from "../Middleware/upload.js";
-import { removeFromCloudinary, uploadToCloudinary, uploadVideo } from "../Services/cloudinary.js";
+import { removeFromCloudinary, uploadVideo } from "../Services/cloudinary.js";
 import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 //#endregion
 
@@ -111,7 +111,7 @@ router.post("/add", upload.fields([
     { name: 'backgrounds' },
     { name: 'effects' },
     { name: 'preview' }
-]), async (req, res) => {
+]), requireAuth, async (req, res) => {
     let animation = null;
     const movementFiles = req.files["movements"];
     const effectFiles = req.files["effects"];
@@ -135,7 +135,7 @@ router.post("/add", upload.fields([
             backgrounds_public_ids: backgrounds_public_ids,
             effects: effects,
             effects_public_ids: effects_public_ids,
-            // creator: req.user._id
+            creator: req.user._id
         });
 
         
@@ -163,7 +163,7 @@ router.post("/add", upload.fields([
 //#endregion
 
 //#region DELETE
-router.delete("/:id",  async function (req, res) {
+router.delete("/:id", requireAuth, async function (req, res) {
     let animation = null;
     try {
         animation = await Animation.findById(req.params.id);

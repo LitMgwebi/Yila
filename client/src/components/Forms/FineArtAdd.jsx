@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState } from "react";
 import baseUrl from "../../hooks/baseUrl";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function FineArtAdd() {
     const [status, setStatus] = useState(null);
-
+    const {user} = useAuthContext();
     const [title, setTitle] = useState("");
     const [physicalType, setPhysicalType] = useState("");
     const [dimension, setDimension] = useState("");
@@ -41,7 +42,7 @@ function FineArtAdd() {
                 headers: {
                     'accept': 'application/json',
                     'Content-Type': 'multipart/form-data',
-                    // 'Authorization': `Bearer ${user.token}`,
+                    'Authorization': `Bearer ${user.token}`,
                 }
             });
             setStatus(res.data.message);

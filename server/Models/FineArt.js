@@ -18,10 +18,10 @@ const fineArtSchema = new Schema({
     piece: {
         type: String,
     },
-    // creator: {
-    //     type: String,
-    //     required: true,
-    // },
+    creator: {
+        type: String,
+        required: true,
+    },
     public_id: {
         type: String
     }

@@ -12,21 +12,21 @@ import uploadMultipleFiles from "../Services/uploadMultipleFiles.js";
 const router = Router();
 
 //#region GET
-router.get('/', async(req, res) => {
+router.get('/', async (req, res) => {
     const id = req.query.characterDesign
     let translation = null;
-    
+
     try {
-        translation = await Translation.find({ 
+        translation = await Translation.find({
             characterDesign: id
         }).sort({ createdAt: "desc" }).exec();
-        
+
         res.status(200).send({
             translation: translation,
             error: null,
             message: "Translations retrieved successfully"
         });
-    }catch(error){
+    } catch (error) {
         log.error(error);
         res.status(404).send({
             translation: translation,
@@ -38,17 +38,17 @@ router.get('/', async(req, res) => {
 //#endregion
 
 //#region POST
-router.post('/add', upload.array("process"), async(req, res) => {
+router.post('/add', upload.array("process"), requireAuth, async (req, res) => {
     let translation = null;
     const files = req.files;
-    const {urls, public_ids} = uploadMultipleFiles(files, "translation");
+    const { urls, public_ids } = uploadMultipleFiles(files, "translation");
     try {
-        //     // creator: req.user._id
         translation = new Translation({
             article: req.body.article,
             characterDesign: req.body.characterDesign,
             process: urls,
             public_ids: public_ids,
+            creator: req.user._id
         })
         await translation.save();
 
@@ -57,8 +57,8 @@ router.post('/add', upload.array("process"), async(req, res) => {
             error: null,
             message: "New translation was added successfully"
         });
-    }catch(error){
-        for(let i = 0; i < public_ids.length; i++){
+    } catch (error) {
+        for (let i = 0; i < public_ids.length; i++) {
             const publicId = public_ids[i];
             await removeFromCloudinary(publicId);
         }
@@ -73,15 +73,15 @@ router.post('/add', upload.array("process"), async(req, res) => {
 //#endregion
 
 //#region DELETE
-router.delete("/:id", requireAuth, async function(req, res) {
+router.delete("/:id", requireAuth, async function (req, res) {
     let translation = null;
-    try{
+    try {
         translation = await Translation.findById(req.params.id);
-        for(let i = 0; i < translation.public_ids.length; i++){
+        for (let i = 0; i < translation.public_ids.length; i++) {
             const publicId = translation.public_ids[i];
             await removeFromCloudinary(publicId);
         }
-        
+
         await translation.remove();
 
         res.status(201).send({

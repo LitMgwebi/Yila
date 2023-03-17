@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "../../hooks/baseUrl";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function AnimationRecord() {
     const [load, setLoad] = useState(true);
@@ -19,6 +20,7 @@ function AnimationRecord() {
     const location = useLocation();
     const navigate = useNavigate();
     const id = location.state.stateId;
+    const { user } = useAuthContext();
 
     useEffect(() => {
         axios({
@@ -53,12 +55,12 @@ function AnimationRecord() {
 
     function handleDelete() {
         setLoad(true);
-        
+
         axios({
             method: "DELETE",
             url: `${baseUrl}/animation/${id}`,
             headers: {
-                // 'Authorization': `Bearer ${user.token}`
+                'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
             setStatus(res.data.message)
@@ -77,9 +79,11 @@ function AnimationRecord() {
                 <h2>{payload.title}</h2>
                 <div className="button-group">
                     <Link to="/animation"><button className="btn btn-secondary">Back</button></Link>
-                    <button onClick={handleConfirm} className="btn btn-danger">
-                        Delete
-                    </button>
+                    {user &&
+                        <button onClick={handleConfirm} className="btn btn-danger">
+                            Delete
+                        </button>
+                    }
                 </div>
 
                 {status && <div className="status">{status}</div>}

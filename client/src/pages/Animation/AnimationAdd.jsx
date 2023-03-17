@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProjectHeader from '../../components/pageStructure/ProjectHeader';
 import baseUrl from '../../hooks/baseUrl';
+import {useAuthContext} from "../../hooks/useAuthContext";
 
 function AnimationAdd() {
     const [title, setTitle] = useState("");
@@ -14,6 +15,7 @@ function AnimationAdd() {
     const [load, setLoad] = useState(null);
     const [status, setStatus] = useState(null);
     const navigate = useNavigate();
+    const { user } = useAuthContext();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -42,7 +44,7 @@ function AnimationAdd() {
             headers: {
                 'accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
-                // 'Authorization': `Bearer ${user.token}`,
+                'Authorization': `Bearer ${user.token}`,
             }
         }).then((res) => {
             setStatus(res.data.message)

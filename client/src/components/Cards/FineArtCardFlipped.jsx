@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import baseUrl from "../../hooks/baseUrl";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function FineArtCardFlipped({ payload, flipCard }) {
     const [status, setStatus] = useState(null);
     const [load, setLoad] = useState(null);
+    const {user} = useAuthContext();
 
     const handleConfirm = () => {
         if (window.confirm("Are you sure you want to delete"))
@@ -15,9 +17,9 @@ function FineArtCardFlipped({ payload, flipCard }) {
         axios({
             method: "DELETE",
             url: `${baseUrl}/fineArt/${payload._id}`,
-            // headers: {
-            //     'Authorization': `Bearer ${user.token}`
-            // }
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         }).then((res) => {
             setLoad(false);
             setStatus(null);

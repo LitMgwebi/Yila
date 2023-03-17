@@ -103,7 +103,7 @@ router.get('/index', requireAuth, async (req, res) => {
 //#endregion
 
 //#region POST
-router.post('/add', upload.single('piece'), async (req, res) => {
+router.post('/add', upload.single('piece'), requireAuth, async (req, res) => {
     let fineArt = null;
     let data = null;
     try {
@@ -116,7 +116,7 @@ router.post('/add', upload.single('piece'), async (req, res) => {
             dimension: req.body.dimension,
             piece: data.url,
             public_id: data.public_id,
-            // creator: req.user._id
+            creator: req.user._id
         });
         await fineArt.save();
         res.status(201).send({
@@ -137,7 +137,7 @@ router.post('/add', upload.single('piece'), async (req, res) => {
 //#endregion
 
 //#region DELETE
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     let fineArt = null
     try {
         fineArt = await FineArt.findById(req.params.id);

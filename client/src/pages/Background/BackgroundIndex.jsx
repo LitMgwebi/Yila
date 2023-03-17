@@ -1,11 +1,13 @@
 import BackgroundCard from "../../components/Cards/BackgroundCard";
 import { Card } from "@material-ui/core";
 import BackgroundAdd from "../../components/Forms/BackgroundAdd";
-import useGet from "../../hooks/useGet";
+import { useGet } from "../../hooks/useGet";
 import InformationTemplate from "../../components/Forms/InformationTemplate";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function BackgroundIndex() {
-    const {payloads, status, load} = useGet("background")
+    const { payloads, status, load } = useGet("background");
+    const { user } = useAuthContext();
     return (
         <div id="Index">
             <div className="section">
@@ -14,11 +16,12 @@ function BackgroundIndex() {
                 {load && <div>Loading...</div>}
             </div>
             <InformationTemplate payloads={payloads} Card={BackgroundCard} />
-            
-            <Card className="createCard">
-                <BackgroundAdd />
-            </Card>
 
+            {user &&
+                <Card className="createCard">
+                    <BackgroundAdd />
+                </Card>
+            }
 
         </div>
     )

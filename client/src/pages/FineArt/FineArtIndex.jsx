@@ -1,10 +1,12 @@
 import { Card } from "@material-ui/core";
 import OutputFineArt from "./OutputFineArt";
-import useGet from "../../hooks/useGet";
+import { useGet } from "../../hooks/useGet";
 import FineArtAdd from "../../components/Forms/FineArtAdd";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function FineArtIndex() {
-    const {payloads, status, load} = useGet("fineArt")
+    const { payloads, status, load } = useGet("fineArt");
+    const { user } = useAuthContext();
     return (
         <div id="Index">
             <div className="section">
@@ -16,9 +18,9 @@ function FineArtIndex() {
             {payloads === null ? <div className="information">Whole lot of nothing</div>
                 : <OutputFineArt payloads={payloads} />}
 
-            <Card className="createCard">
+            {user && <Card className="createCard">
                 <FineArtAdd />
-            </Card>
+            </Card>}
         </div>
     )
 }

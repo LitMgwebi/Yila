@@ -82,7 +82,7 @@ router.get('/index', requireAuth, async (req, res) => {
 //#endregion
 
 //#region POST
-router.post("/add", upload.single("piece"), async (req, res) => {
+router.post("/add", upload.single("piece"), requireAuth, async (req, res) => {
     let background = null;
     let data = null;
     try {
@@ -92,7 +92,7 @@ router.post("/add", upload.single("piece"), async (req, res) => {
             title: req.body.title,
             piece: data.url,
             public_id: data.public_id,
-            // creator: req.user._id
+            creator: req.user._id
         });
 
         await background.save();
@@ -114,7 +114,7 @@ router.post("/add", upload.single("piece"), async (req, res) => {
 //#endregion
 
 //#region DELETE
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     let background = null;
 
     try {

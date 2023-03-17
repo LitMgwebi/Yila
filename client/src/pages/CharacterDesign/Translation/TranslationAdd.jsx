@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import baseUrl from "../../../hooks/baseUrl";
+import { useAuthContext } from "../../../hooks/useAuthContext";
 
 function TranslationAdd({ id }) {
     const [process, setProcess] = useState("");
@@ -9,6 +10,7 @@ function TranslationAdd({ id }) {
     const [load, setLoad] = useState(false)
     const [status, setStatus] = useState(null);
     const [showButton, setShowButton] = useState(false);
+    const { user } = useAuthContext();
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -29,7 +31,7 @@ function TranslationAdd({ id }) {
             headers: {
                 'accept': 'application/json',
                 'Content-Type': `multipart/form-data`,
-                // 'Authorization': `Bearer ${user.token}`,
+                'Authorization': `Bearer ${user.token}`,
             },
         }).then((res) => {
             setStatus(res.data.message)
@@ -75,7 +77,7 @@ function TranslationAdd({ id }) {
                     {load && <div>Loading...</div>}
                     <div className="button-group">
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        {showButton && <Link to="/portfolio/character-design"><button className="btn btn-secondary">Finish</button></Link>}
+                        {showButton && <Link to="/character-design/id"><button className="btn btn-secondary">Finish</button></Link>}
                     </div>
                 </div>
             </form>

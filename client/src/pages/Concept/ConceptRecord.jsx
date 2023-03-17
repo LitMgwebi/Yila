@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import axios from "axios";
 import Slider from "../../components/pageStructure/Slider";
-// import { useAuthContext } from "../../../../hooks/useAuthContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import baseUrl from "../../hooks/baseUrl";
 import { useState, useEffect } from "react";
 
@@ -10,7 +10,7 @@ function ConceptRecord() {
     const location = useLocation();
     const navigate = useNavigate();
     const id = location.state.stateId;
-    // const { user } = useAuthContext();
+    const { user } = useAuthContext();
     const [payload, setPayload] = useState({
         title: "",
         article: "",
@@ -56,9 +56,9 @@ function ConceptRecord() {
             const res = await axios({
                 method: "DELETE",
                 url: `${baseUrl}/concept/${id}`,
-                // headers: {
-                //     'Authorization': `Bearer ${user.token}`
-                // }
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
             });
             setStatus(res.data.message)
             setLoad(false)
@@ -78,9 +78,11 @@ function ConceptRecord() {
 
                 <div className="button-group">
                     <Link to="/concept/"><button className="btn btn-secondary">Back</button></Link>
-                    <button onClick={handleConfirm} className="btn btn-danger">
-                        Delete
-                    </button>
+                    {user &&
+                        <button onClick={handleConfirm} className="btn btn-danger">
+                            Delete
+                        </button>
+                    }
                 </div>
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}

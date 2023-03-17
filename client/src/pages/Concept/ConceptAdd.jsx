@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProjectHeader from "../../components/pageStructure/ProjectHeader";
 import baseUrl from "../../hooks/baseUrl";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function ConceptAdd() {
     const [pieces, setPieces] = useState("");
@@ -10,7 +11,7 @@ function ConceptAdd() {
     const [article, setArticle] = useState("");
     const [status, setStatus] = useState(null);
     const [load, setLoad] = useState(false);
-    // const { user } = useAuthContext();
+    const { user } = useAuthContext();
     const navigate = useNavigate();
 
     function handleSubmit(e) {
@@ -32,7 +33,7 @@ function ConceptAdd() {
             headers: {
                 'accept': 'application/json',
                 'Content-Type': `multipart/form-data`,
-                // 'Authorization': `Bearer ${user.token}`,
+                'Authorization': `Bearer ${user.token}`,
             }
         }).then((res) => {
             setStatus(res.data.message)
@@ -87,7 +88,7 @@ function ConceptAdd() {
                     {load && <div>Loading...</div>}
                     <div className="button-group">
                         <button type="submit" className="btn btn-primary">Submit</button>
-                        <Link to="/portfolio/concept"><button className="btn btn-secondary">Cancel</button></Link>
+                        <Link to="/concept"><button className="btn btn-secondary">Cancel</button></Link>
                     </div>
                 </div>
             </form>

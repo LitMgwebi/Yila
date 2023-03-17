@@ -102,7 +102,7 @@ router.get("/:id", async (req, res) => {
 //#endregion
 
 //#region POST
-router.post('/add', upload.array("pieces"), async (req, res) => {
+router.post('/add', upload.array("pieces"), requireAuth, async (req, res) => {
     let concept = null;
     const files = req.files;
     const { urls, public_ids } = await uploadMultipleFiles(files, "concept");
@@ -113,7 +113,7 @@ router.post('/add', upload.array("pieces"), async (req, res) => {
             article: req.body.article,
             pieces: urls,
             public_ids: public_ids,
-            // creator: req.user._id
+            creator: req.user._id
         });
         await concept.save();
         res.status(201).send({
@@ -139,7 +139,7 @@ router.post('/add', upload.array("pieces"), async (req, res) => {
 //#endregion
 
 //#region DELETE /fine-art/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', requireAuth, async (req, res) => {
     let concept = null
     try {
         concept = await Concept.findById(req.params.id);

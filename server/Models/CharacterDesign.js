@@ -12,10 +12,10 @@ const characterDesignSchema = new Schema({
     public_id: {
         type: String,
     },
-    // creator: {
-    //     type: String,
-    //     required: true,
-    // },
+    creator: {
+        type: String,
+        required: true,
+    },
 }, {timestamps: true});
 
 const CharacterDesign = model('CharacterDesign', characterDesignSchema);
