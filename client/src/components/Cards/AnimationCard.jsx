@@ -16,7 +16,7 @@ function AnimationCard({ payload }) {
                     alt={payload.title}
                     image={payload.preview}
                     className="cardMedia"
-                    autoPlay
+                    //autoPlay
                 />
             </Link>
         </Card>

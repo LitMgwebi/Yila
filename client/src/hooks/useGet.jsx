@@ -10,46 +10,50 @@ function useGet(dest) {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `${baseUrl}/${dest}/`
-        }).then((res) => {
-            if (res.data[dest]) {
-                setPayloads(res.data[dest]);
-                setStatus(res.data.message);
-                console.log(res.data[dest])
-            } else {
-                setStatus("There are no entries in the database")
+            url: `${baseUrl}/${dest}/`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
             }
+        }).then((res) => {
+            console.log(res.data);
+            setPayloads(res.data[dest]);
+            setStatus(res.data.message);
             setLoad(false);
         }).catch((error) => {
+            console.log(error)
             setStatus(error.response.data.error);
             setLoad(false);
-            console.error(error.message);
         });
     }, [dest]);
     return { payloads, status, load }
 }
 
-const useGetUnsecure = (dest) => {
+const useGetUnsecure = (dest, id) => {
     const [payloads, setPayloads] = useState(null);
     const [load, setLoad] = useState(true);
     const [status, setStatus] = useState(null);
 
-    axios({
-        method: "GET",
-        url: `${baseUrl}/${dest}/list`
-    }).then((res) => {
-        if (res.data[dest].length > 0) {
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: `${baseUrl}/${dest}/list`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            },
+            params: {
+                creatorId: id
+            }
+        }).then((res) => {
+            console.log(res.data);
             setPayloads(res.data[dest]);
             setStatus(res.data.message);
-        } else {
-            setStatus("There are no entries in the database")
-        }
-        setLoad(false);
-    }).catch((error) => {
-        setStatus(error.response.data.error);
-        setLoad(false);
-        console.error(error.message);
-    });
+            setLoad(false);
+        }).catch((error) => {
+            console.error(error);
+            setStatus(error.response.data.error);
+            setLoad(false);
+        });
+    }, [id, dest])
 
     return { payloads, status, load }
 }

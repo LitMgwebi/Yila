@@ -45,6 +45,7 @@ router.get("/", async (req, res) => {
 //#region GET ALL for consumer
 router.get("/list", async (req, res) => {
     let concept = null;
+    let message = "";
     const creator = req.query.creatorId;
 
     try {

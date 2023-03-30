@@ -10,7 +10,7 @@ import LatestPiecesTemplate from "../../components/Forms/LatestPiecesTemplate";
 function Home() {
     const { payloads: animationPayloads, load: animationLoad } = useGet("animation")
     const { payloads: backgroundPayloads, load: backgroundLoad } = useGet("background")
-    const { payloads: fineArtPayloads, load: fineArtLoad } = useGet("fineArt")
+   // const { payloads: fineArtPayloads, load: fineArtLoad } = useGet("fineArt")
     const { payloads: conceptPayloads, load: conceptLoad } = useGet("concept")
     const { payloads: cdPayloads, load: cdLoad } = useGet("characterDesign")
     return (
@@ -47,13 +47,13 @@ function Home() {
                     load={backgroundLoad}
                     link="/background"
                 />
-                <LatestPiecesTemplate
+                {/*<LatestPiecesTemplate
                     payloads={fineArtPayloads}
                     Card={FineArtCard}
                     categoryName="Fine Art"
                     load={fineArtLoad}
                     link="fine-art"
-                />
+                />*/}
             </div>
         </div>
     )

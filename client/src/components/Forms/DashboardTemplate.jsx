@@ -1,40 +1,47 @@
-import InformationTemplate from "../InformationTemplate";
-import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
-import {useState} from "react";
-import { useGetUnsecure } from "../../../hooks/useGet";
+import AnimationCard from "../Cards/AnimationCard";
+import BackgroundCard from "../Cards/BackgroundCard";
+import { useGetUnsecure } from "../../hooks/useGet";
+import AccordionDashboardTemplate from "./AccordionDashboardTemplate";
 
-function DashboardTemplate() {
-    const [expanded, setExpanded] = useState(false);
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+function DashboardTemplate({ id }) {
 
-    const { payloads: animationPayloads, load: animationLoad } = useGetUnsecure("animation")
-    const { payloads: backgroundPayloads, load: backgroundLoad } = useGetUnsecure("background")
-    const { payloads: fineArtPayloads, load: fineArtLoad } = useGetUnsecure("fineArt")
-    const { payloads: conceptPayloads, load: conceptLoad } = useGetUnsecure("concept")
-    const { payloads: cdPayloads, load: cdLoad } = useGetUnsecure("characterDesign")
 
-    return(
+    const { payloads: animationPayloads, load: animationLoad } = useGetUnsecure("animation", id)
+    const { payloads: backgroundPayloads, load: backgroundLoad } = useGetUnsecure("background", id)
+    // const { payloads: fineArtPayloads, load: fineArtLoad } = useGetUnsecure("fineArt", id)
+    const { payloads: conceptPayloads, load: conceptLoad } = useGetUnsecure("concept", id)
+    const { payloads: cdPayloads, load: cdLoad } = useGetUnsecure("characterDesign", id)
+
+    return (
         <div className="dashboardTemplate">
-            <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                <AccordionSummary
-                    expandIcon={
-                        <button className="cardButton">
-                            {expanded ? "Close" : "Open"}
-                        </button>
-                    }
-                >
-                    <div className="translationHeader">
-                        <h4>Animation</h4>
-                    </div>
 
-                </AccordionSummary>
-
-                <AccordionDetails>
-                    {/* <InformationTemplate payload={payload} Card={animationCard}/> */}
-                </AccordionDetails>
-            </Accordion>
+            <div className="section">
+                {animationLoad && <div>Loading...</div>}
+            </div>
+            <AccordionDashboardTemplate
+                payloads={animationPayloads}
+                panel="panel1"
+                title="Animation"
+                Card={AnimationCard}
+            />
+            <AccordionDashboardTemplate
+                payloads={backgroundPayloads}
+                panel="panel2"
+                title="Background"
+                Card={BackgroundCard}
+            />
+            <AccordionDashboardTemplate
+                payloads={animationPayloads}
+                panel="panel1"
+                title="Animation"
+                Card={AnimationCard}
+            />
+            <AccordionDashboardTemplate
+                payloads={animationPayloads}
+                panel="panel1"
+                title="Animation"
+                Card={AnimationCard}
+            />
         </div>
     )
 }

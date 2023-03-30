@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import baseUrl from "../../hooks/baseUrl";
 import { useLocation } from "react-router-dom";
-import DashboardTemplate from "../../components/Forms/Dashboard/DashboardTemplate";
+import DashboardTemplate from "../../components/Forms/DashboardTemplate";
 
 function Dashboard() {
     const [load, setLoad] = useState(true);
@@ -64,7 +64,7 @@ function Dashboard() {
                 <div className="dashboardInformation">
                     <p>{payload.DOB}</p>
 
-                    {/* <DashboardTemplate/> */}
+                    <DashboardTemplate id={id} />
                 </div>
             </div>
         </div>
