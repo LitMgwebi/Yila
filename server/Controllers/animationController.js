@@ -37,6 +37,7 @@ router.get('/', async (req, res) => {
 //#region GET All for consumer
 router.get('/list', async (req, res) => {
     let animation = null;
+    let message = "";
     const creatorId = req.query.creatorId;
 
     try {
