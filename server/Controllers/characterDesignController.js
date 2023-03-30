@@ -14,20 +14,29 @@ const router = Router();
 //#region GET ALL
 router.get('/', async (req, res) => {
     let cd = null;
+    let message = "";
 
     try{
         cd = await CharacterDesign.find({}).sort({ createdAt: "desc" }).exec();
+
+        if (cd.length > 0) {
+            message = "Character design retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
+
         res.status(200).send({
             characterDesign: cd,
             error: null,
-            message: "Character designs retrived successfully"
+            message: message
         });
     }catch(error){
         log.error(error);
+        message = "Character designs retrival failed"
         res.status(404).send({
             characterDesign: cd,
             error: error.message,
-            message: "Character designs retrival failed"
+            message: message
         });
     }
 });
@@ -36,21 +45,29 @@ router.get('/', async (req, res) => {
 //#region GET ALL for consumer
 router.get('/list', async (req, res) => {
     let cd = null;
-    const creatorId = req.query.creatorId
+    const creator = req.query.creatorId
 
     try{
-        cd = await CharacterDesign.find({creator: creatorId}).sort({ createdAt: "desc" }).exec();
+        cd = await CharacterDesign.find({ creator }).sort({ createdAt: "desc" }).exec();
+
+        if (cd.length > 0) {
+            message = "Character design retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
+
         res.status(200).send({
             characterDesign: cd,
             error: null,
-            message: "Character designs retrived successfully"
+            message: message
         });
     }catch(error){
         log.error(error);
+        message = "Character designs retrival failed"
         res.status(404).send({
             characterDesign: cd,
             error: error.message,
-            message: "Character designs retrival failed"
+            message: message
         });
     }
 });

@@ -13,6 +13,7 @@ const router = Router();
 //#region GET ALL
 router.get("/", async (req, res) => {
     let fineArt = null;
+    let message = "";
 
     try {
         const landscape = await FineArt.find({ physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
@@ -24,17 +25,25 @@ router.get("/", async (req, res) => {
             portrait: portrait,
             other: other
         }
+
+        if (fineArt.landscape.length > 0 || fineArt.portrait.length > 0 || fineArt.other.length > 0) {
+            message = "Fine Art retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
+
         res.status(201).send({
             fineArt: fineArt,
             error: null,
-            message: "Fine Art retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Fine Art retrieval failed";
         res.status(400).send({
             fineArt: fineArt,
             error: error.message,
-            message: "Fine Art retrieval failed"
+            message: message
         })
     }
 });
@@ -43,29 +52,38 @@ router.get("/", async (req, res) => {
 //#region GET ALL for consumer
 router.get('/list', async (req, res) => {
     let fineArt = null;
-    const creatorId = req.query.creatorId;
+    const creator = req.query.creatorId;
+    let message = "";
 
     try {
-        const landscape = await FineArt.find({ creator: creatorId, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
-        const portrait = await FineArt.find({ creator: creatorId, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
-        const other = await FineArt.find({ creator: creatorId, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
+        const landscape = await FineArt.find({ creator, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
+        const portrait = await FineArt.find({ creator, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
+        const other = await FineArt.find({ creator, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
 
         fineArt = {
             landscape: landscape,
             portrait: portrait,
             other: other
         }
+
+        if (fineArt.landscape.length > 0 || fineArt.portrait.length > 0 || fineArt.other.length > 0) {
+            message = "Fine Art retrieved successfully";
+        } else {
+            message = "There are no entries in the database";
+        }
+
         res.status(201).send({
             fineArt: fineArt,
             error: null,
-            message: "Fine Art retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Fine Art retrieval failed"
         res.status(400).send({
             fineArt: fineArt,
             error: error.message,
-            message: "Fine Art retrieval failed"
+            message: message
         })
     }
 });

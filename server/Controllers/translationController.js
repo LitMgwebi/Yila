@@ -15,23 +15,31 @@ const router = Router();
 router.get('/', async (req, res) => {
     const id = req.query.characterDesign
     let translation = null;
+    let message = "";
 
     try {
         translation = await Translation.find({
             characterDesign: id
         }).sort({ createdAt: "desc" }).exec();
 
+        if (translation.length > 0) {
+            message = "Translations retrieved successfully";
+        } else {
+            message = "There are no entries in the database";
+        }
+
         res.status(200).send({
             translation: translation,
             error: null,
-            message: "Translations retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error);
+        message = "Translations retrival failed";
         res.status(404).send({
             translation: translation,
             error: error.message,
-            message: "Translations retrival failed"
+            message: message
         });
     }
 });

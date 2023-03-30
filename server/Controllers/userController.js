@@ -11,21 +11,29 @@ const router = Router();
 //#region GET ALL
 router.get('/', async(req, res) => {
     let user = null;
+    let message = "";
 
     try {
         user = await User.find().sort({ createdAt: "desc" }).exec();
 
+        if (user.length > 0) {
+            message = "Users retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
+
         res.status(200).send({
             user: user,
             error: null,
-            message: "Users retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Users retrieval failed";
         res.status(400).send({
             user: user,
             error: error.message,
-            message: "Users retrieval failed"
+            message: message
         });
     }
 })

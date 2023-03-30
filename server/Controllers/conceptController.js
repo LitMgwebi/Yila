@@ -14,20 +14,29 @@ const router = Router();
 //#region GET ALL
 router.get("/", async (req, res) => {
     let concept = null;
+    let message = "";
 
     try {
         concept = await Concept.find({}).sort({ createdAt: "desc" }).exec();
+
+        if (concept.length > 0) {
+            message = "Concept retrieved successfully";
+        } else {
+            message = "There are no entries in the database";
+        }
+
         res.status(201).send({
             concept: concept,
             error: null,
-            message: "Concept retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Concept retrieval failed";
         res.status(400).send({
             concept: concept,
             error: error.message,
-            message: "Concept retrieval failed"
+            message: message
         });
     }
 });
@@ -36,21 +45,29 @@ router.get("/", async (req, res) => {
 //#region GET ALL for consumer
 router.get("/list", async (req, res) => {
     let concept = null;
-    const creatorId = req.query.creatorId;
+    const creator = req.query.creatorId;
 
     try {
-        concept = await Concept.find({ creator: creatorId }).sort({ createdAt: "desc" }).exec();
+        concept = await Concept.find({ creator }).sort({ createdAt: "desc" }).exec();
+
+        if (concept.length > 0) {
+            message = "Concept retrieved successfully";
+        } else {
+            message = "There are no entries in the database";
+        }
+
         res.status(201).send({
             concept: concept,
             error: null,
-            message: "Concept retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Concept retrieval failed"
         res.status(400).send({
             concept: concept,
             error: error.message,
-            message: "Concept retrieval failed"
+            message: message
         });
     }
 });
