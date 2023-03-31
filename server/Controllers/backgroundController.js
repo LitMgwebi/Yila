@@ -59,7 +59,7 @@ router.get('/list', async (req, res) => {
         res.status(200).send({
             background: background,
             error: null,
-            message: messsage
+            message: message
         });
     } catch (error) {
         log.error(error.message);

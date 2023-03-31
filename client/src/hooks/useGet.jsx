@@ -15,12 +15,11 @@ function useGet(dest) {
                 "Access-Control-Allow-Origin": "*",
             }
         }).then((res) => {
-            console.log(res.data);
             setPayloads(res.data[dest]);
             setStatus(res.data.message);
             setLoad(false);
         }).catch((error) => {
-            console.log(error)
+            console.log(error.message)
             setStatus(error.response.data.error);
             setLoad(false);
         });
@@ -44,12 +43,11 @@ const useGetUnsecure = (dest, id) => {
                 creatorId: id
             }
         }).then((res) => {
-            console.log(res.data);
             setPayloads(res.data[dest]);
             setStatus(res.data.message);
             setLoad(false);
         }).catch((error) => {
-            console.error(error);
+            console.error(error.message);
             setStatus(error.response.data.error);
             setLoad(false);
         });

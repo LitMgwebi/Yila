@@ -1,7 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary } from '@material-ui/core';
 import { useState } from "react";
 
-function AccordionDashboardTemplate({ payloads, panel, title, Card }) {
+function AccordionDashboardTemplate({ payloads, panel, title, Card, load }) {
     const [expanded, setExpanded] = useState(false);
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
@@ -23,15 +23,17 @@ function AccordionDashboardTemplate({ payloads, panel, title, Card }) {
 
                 </AccordionSummary>
 
-                <AccordionDetails>
-                    {payloads ? payloads.map((payload, i) => {
-                        return (
-                            <Card payload={payload} />
-                        );
-                    })
-                        : <div>Whole lot of nothing</div>
-                    }
-                </AccordionDetails>
+                {load ? <div>Loading...</div>
+                    : <AccordionDetails>
+                        {
+                            payloads.map((payload, i) => {
+                                return (
+                                    <Card payload={payload} />
+                                );
+                            })
+                        }
+                    </AccordionDetails>
+                }
             </Accordion>
         </div>
     )
