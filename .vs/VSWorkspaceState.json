@@ -3,9 +3,8 @@
     "",
     "\\client",
     "\\client\\src",
-    "\\client\\src\\components",
-    "\\client\\src\\pages"
+    "\\client\\src\\components"
   ],
-  "SelectedNode": "\\server\\Controllers\\conceptController.js",
+  "SelectedNode": "\\client\\src\\components\\Forms\\AccordionDashboardTemplate.jsx",
   "PreviewInSolutionExplorer": false
 }

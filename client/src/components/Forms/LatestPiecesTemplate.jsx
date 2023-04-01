@@ -9,7 +9,7 @@ function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
             <div className="latestPieces">
                 {payloads ? payloads.map((payload, i) => {
                         return (
-                            <Card payload={payload} />
+                            <Card payload={payload} key={i} />
                         );
                     })
                         : <div>Whole lot of nothing</div>

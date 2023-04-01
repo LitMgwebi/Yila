@@ -31,7 +31,6 @@ const useGetUnsecure = (dest, id) => {
     const [payloads, setPayloads] = useState(null);
     const [load, setLoad] = useState(true);
     const [status, setStatus] = useState(null);
-
     useEffect(() => {
         axios({
             method: "GET",
@@ -48,7 +47,7 @@ const useGetUnsecure = (dest, id) => {
             setLoad(false);
         }).catch((error) => {
             console.error(error.message);
-            setStatus(error.response.data.error);
+            setStatus(error.message);
             setLoad(false);
         });
     }, [id, dest])

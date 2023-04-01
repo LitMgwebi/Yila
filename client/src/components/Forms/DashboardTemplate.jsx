@@ -6,18 +6,13 @@ import { useGetUnsecure } from "../../hooks/useGet";
 import AccordionDashboardTemplate from "./AccordionDashboardTemplate";
 
 function DashboardTemplate({ id }) {
-
-
-    const { payloads: animationPayloads, load: animationLoad } = useGetUnsecure("animation", id)
-    const { payloads: backgroundPayloads, load: backgroundLoad } = useGetUnsecure("background", id)
-    /*const { payloads: fineArtPayloads, load: fineArtLoad } = useGetUnsecure("fineArt", id)
-    console.log(`Fine art: ${fineArtPayloads}`);*/
-    const { payloads: conceptPayloads, load: conceptLoad } = useGetUnsecure("concept", id)
-    const { payloads: cdPayloads, load: cdLoad } = useGetUnsecure("characterDesign", id)
+    const { payloads: animationPayloads, load: animationLoad } = useGetUnsecure('animation', id);
+    const { payloads: backgroundPayloads, load: backgroundLoad } = useGetUnsecure('background', id);
+    const { payloads: conceptPayloads, load: conceptLoad } = useGetUnsecure('concept', id);
+    const { payloads: cdPayloads, load: cdload } = useGetUnsecure('characterDesign', id);
 
     return (
         <div className="dashboardTemplate">
-
             <AccordionDashboardTemplate
                 payloads={animationPayloads}
                 panel="panel1"
@@ -25,29 +20,32 @@ function DashboardTemplate({ id }) {
                 Card={AnimationCard}
                 load={animationLoad}
             />
-            < AccordionDashboardTemplate
+
+            <AccordionDashboardTemplate
                 payloads={backgroundPayloads}
                 panel="panel2"
                 title="Background"
                 Card={BackgroundCard}
                 load={backgroundLoad}
             />
-            < AccordionDashboardTemplate
+            <AccordionDashboardTemplate
                 payloads={conceptPayloads}
                 panel="panel3"
                 title="Concept"
                 Card={ConceptCard}
                 load={conceptLoad}
             />
+
             <AccordionDashboardTemplate
                 payloads={cdPayloads}
-                panel="panel3"
+                panel="panel4"
                 title="Character Design"
                 Card={CharacterDesignCard}
-                load={cdLoad}
+                load={cdload}
             />
         </div>
-    )
+
+    );
 }
 
 export default DashboardTemplate;

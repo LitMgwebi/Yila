@@ -3,7 +3,7 @@ function InformationTemplate({payloads, Card}){
         <div className="information">
             {payloads ? payloads.map((payload, i) => {
                 return(
-                    <Card payload={payload}/>
+                    <Card payload={payload} key={i} />
                 );
             })
             : <div className="information">Whole lot of nothing</div>}

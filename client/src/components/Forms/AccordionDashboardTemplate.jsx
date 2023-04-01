@@ -28,7 +28,7 @@ function AccordionDashboardTemplate({ payloads, panel, title, Card, load }) {
                         {
                             payloads.map((payload, i) => {
                                 return (
-                                    <Card payload={payload} />
+                                    <Card payload={payload} key={i} />
                                 );
                             })
                         }
