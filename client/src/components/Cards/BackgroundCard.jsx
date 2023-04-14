@@ -28,7 +28,7 @@ function BackgroundCard({ payload }) {
             setStatus(res.data.message)
             setLoad(false)
         } catch (error) {
-            setStatus(error.response.data.error);
+            setStatus(error.message);
             console.log(error.message)
             setLoad(false)
         }
@@ -36,20 +36,35 @@ function BackgroundCard({ payload }) {
     }
     return (
         <div>
-            <Card className="backgroundCard" onClick={useConfirm}>
-                <CardMedia
-                    component="img"
-                    alt={payload.title}
-                    image={payload.piece}
-                    className="cardMedia"
-                />
+            {user ?
+                <Card className="backgroundCard" onClick={useConfirm}>
+                    <CardMedia
+                        component="img"
+                        alt={payload.title}
+                        image={payload.piece}
+                        className="cardMedia"
+                    />
 
-                <div className="cardHeader">
-                    <h4>{payload.title}</h4>
-                    {status && <div className="status">{status}</div>}
-                    {load && <div>Loading...</div>}
-                </div>
-            </Card>
+                    <div className="cardHeader">
+                        <h4>{payload.title}</h4>
+                        {status && <div className="status">{status}</div>}
+                        {load && <div>Loading...</div>}
+                    </div>
+                </Card>
+                : <Card className="backgroundCard">
+                    <CardMedia
+                        component="img"
+                        alt={payload.title}
+                        image={payload.piece}
+                        className="cardMedia"
+                    />
+
+                    <div className="cardHeader">
+                        <h4>{payload.title}</h4>
+                        {status && <div className="status">{status}</div>}
+                        {load && <div>Loading...</div>}
+                    </div>
+                </Card>}
         </div>
     )
 }

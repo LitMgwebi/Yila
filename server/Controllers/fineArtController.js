@@ -12,28 +12,32 @@ const router = Router();
 
 //#region GET ALL
 router.get("/", async (req, res) => {
-    let fineArt = null;
+    let landscape = null;
+    let portrait = null;
+    let other = null;
     let message = "";
 
     try {
-        const landscape = await FineArt.find({ physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
-        const portrait = await FineArt.find({ physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
-        const other = await FineArt.find({ physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
+        landscape = await FineArt.find({ physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
+        portrait = await FineArt.find({ physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
+        other = await FineArt.find({ physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
 
-        fineArt = {
+        /*fineArt = {
             landscape: landscape,
             portrait: portrait,
             other: other
-        }
+        }*/
 
-        if (fineArt.landscape.length > 0 || fineArt.portrait.length > 0 || fineArt.other.length > 0) {
+        if (landscape.length > 0 || portrait.length > 0 || other.length > 0) {
             message = "Fine Art retrieved successfully"
         } else {
             message = "There are no entries in the database"
         }
 
         res.status(201).send({
-            fineArt: fineArt,
+            landscape: landscape,
+            other: other,
+            portrait: portrait,
             error: null,
             message: message
         });
@@ -41,7 +45,9 @@ router.get("/", async (req, res) => {
         log.error(error.message);
         message = "Fine Art retrieval failed";
         res.status(400).send({
-            fineArt: fineArt,
+            landscape: landscape,
+            other: other,
+            portrait: portrait,
             error: error.message,
             message: message
         })
@@ -51,29 +57,33 @@ router.get("/", async (req, res) => {
 
 //#region GET ALL for consumer
 router.get('/list', async (req, res) => {
-    let fineArt = null;
+    let landscape = null;
+    let portrait = null;
+    let other = null;
     const creator = req.query.creatorId;
     let message = "";
 
     try {
-        const landscape = await FineArt.find({ creator, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
-        const portrait = await FineArt.find({ creator, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
-        const other = await FineArt.find({ creator, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
+        landscape = await FineArt.find({ creator, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
+        portrait = await FineArt.find({ creator, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
+        other = await FineArt.find({ creator, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
 
-        fineArt = {
+        /*fineArt = {
             landscape: landscape,
             portrait: portrait,
             other: other
-        }
+        }*/
 
-        if (fineArt.landscape.length > 0 || fineArt.portrait.length > 0 || fineArt.other.length > 0) {
+        if (landscape.length > 0 || portrait.length > 0 || other.length > 0) {
             message = "Fine Art retrieved successfully";
         } else {
             message = "There are no entries in the database";
         }
 
         res.status(201).send({
-            fineArt: fineArt,
+            landscape: landscape,
+            other: other,
+            portrait: portrait,
             error: null,
             message: message
         });
@@ -81,7 +91,9 @@ router.get('/list', async (req, res) => {
         log.error(error.message);
         message = "Fine Art retrieval failed"
         res.status(400).send({
-            fineArt: fineArt,
+            landscape: landscape,
+            other: other,
+            portrait: portrait,
             error: error.message,
             message: message
         })

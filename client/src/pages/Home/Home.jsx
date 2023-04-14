@@ -3,14 +3,14 @@ import CharacterDesignCard from "../../components/Cards/CharacterDesignCard";
 import AnimationCard from "../../components/Cards/AnimationCard";
 import BackgroundCard from "../../components/Cards/BackgroundCard";
 import FineArtCard from "../../components/Cards/FineArtCard";
-import {useGet} from "../../hooks/useGet";
+import { useGet, useGetFineArt } from "../../hooks/useGet";
 import ConceptCard from "../../components/Cards/ConceptCard";
 import LatestPiecesTemplate from "../../components/Forms/LatestPiecesTemplate";
 
 function Home() {
     const { payloads: animationPayloads, load: animationLoad } = useGet("animation")
     const { payloads: backgroundPayloads, load: backgroundLoad } = useGet("background")
-   // const { payloads: fineArtPayloads, load: fineArtLoad } = useGet("fineArt")
+    const { landscapes, others, portraits, load: fineArtLoad } = useGetFineArt();
     const { payloads: conceptPayloads, load: conceptLoad } = useGet("concept")
     const { payloads: cdPayloads, load: cdLoad } = useGet("characterDesign")
     return (
@@ -47,13 +47,29 @@ function Home() {
                     load={backgroundLoad}
                     link="/background"
                 />
-                {/*<LatestPiecesTemplate
-                    payloads={fineArtPayloads}
+                <LatestPiecesTemplate
+                    payloads={landscapes}
                     Card={FineArtCard}
-                    categoryName="Fine Art"
+                    categoryName="Landscape"
                     load={fineArtLoad}
                     link="fine-art"
-                />*/}
+                />
+
+                <LatestPiecesTemplate
+                    payloads={portraits}
+                    Card={FineArtCard}
+                    categoryName="Portrait"
+                    load={fineArtLoad}
+                    link="fine-art"
+                />
+                
+                <LatestPiecesTemplate
+                    payloads={others}
+                    Card={FineArtCard}
+                    categoryName="Other"
+                    load={fineArtLoad}
+                    link="fine-art"
+                />
             </div>
         </div>
     )

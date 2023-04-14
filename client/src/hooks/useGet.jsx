@@ -54,4 +54,65 @@ const useGetUnsecure = (dest, id) => {
 
     return { payloads, status, load }
 }
-export { useGet, useGetUnsecure };
+
+function useGetFineArt() {
+    const [landscapes, setLandscapes] = useState(null);
+    const [others, setOthers] = useState(null);
+    const [portraits, setPortraits] = useState(null);
+    const [load, setLoad] = useState(true);
+    const [status, setStatus] = useState(null);
+
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: `${baseUrl}/fineArt/`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            }
+        }).then((res) => {
+            setLandscapes(res.data.landscape);
+            setOthers(res.data.other);
+            setPortraits(res.data.portrait);
+            setStatus(res.data.message);
+            setLoad(false);
+        }).catch((error) => {
+            console.log(error.message)
+            setStatus(error.response.data.error);
+            setLoad(false);
+        });
+    }, []);
+    return { landscapes, others, portraits, status, load }
+}
+
+const useGetFineArtUnsecure = (id) => {
+    const [landscapes, setLandscapes] = useState(null);
+    const [others, setOthers] = useState(null);
+    const [portraits, setPortraits] = useState(null);
+    const [load, setLoad] = useState(true);
+    const [status, setStatus] = useState(null);
+    useEffect(() => {
+        axios({
+            method: "GET",
+            url: `${baseUrl}/fineArt/list`,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+            },
+            params: {
+                creatorId: id
+            }
+        }).then((res) => {
+            setLandscapes(res.data.landscape);
+            setOthers(res.data.other);
+            setPortraits(res.data.portrait);
+            setStatus(res.data.message);
+            setLoad(false);
+        }).catch((error) => {
+            console.error(error.message);
+            setStatus(error.message);
+            setLoad(false);
+        });
+    }, [id])
+
+    return { landscapes, others, portraits, status, load }
+}
+export { useGet, useGetUnsecure, useGetFineArt, useGetFineArtUnsecure };
