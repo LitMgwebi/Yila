@@ -28,75 +28,83 @@ const Signup = () => {
         await signup(formData);
     }
     return (
-        <div id="Add">
-            <h3>Sign up</h3>
-            <form className="authForm" onSubmit={handleSubmit}>
+        <div id="Authentication">
+            <div className="authSection">
+                <h1>Sign up</h1>
+                {status && <div className="status">{status}</div>}
+                {load && <div>Loading...</div>}
+            </div>
+            <form onSubmit={handleSubmit}>
                 <ReactCardFlip isFlipped={flip} flipDirection="vertical">
-                    <div className="auth">
-                        <div className="singleLineInput">
-                            <label>Email: </label>
-                            <input
-                                type="email"
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                            />
-                        </div>
+                    <div className="authForm">
+                        <div className="auth">
+                            <div className="singleLineInput">
+                                <label>Email: </label>
+                                <input
+                                    type="email"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    value={email}
+                                />
+                            </div>
 
-                        <div className="singleLineInput">
-                            <label>Password: </label>
-                            <input
-                                type="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div className="singleLineInput">
+                                <label>Password: </label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
                         </div>
-                        <div className="controls">
+                        <div className="authControls">
                             <button onClick={() => { setFlip(!flip) }} className="btn btn-primary">Continue</button>
                             <Link to="/"><button className="btn btn-secondary">Back</button></Link>
                         </div>
                     </div>
-                    <div className="formInput">
-                        <div className="singleLineInput">
-                            <label>First Name:</label>
-                            <input
-                                type="text"
-                                name="firstName"
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                required
-                            />
+                    <div className="authForm">
+                        <div className="auth">
+                            <div className="singleLineInput">
+                                <label>First Name:</label>
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="singleLineInput">
+                                <label>Last Name:</label>
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="singleLineInput">
+                                <label>Date of Birth:</label>
+                                <input
+                                    type="date"
+                                    name="dob"
+                                    value={dob}
+                                    onChange={(e) => setDOB(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="photoInput">
+                                <label>Profile Photo:</label>
+                                <input
+                                    type="file"
+                                    name="profilePhoto"
+                                    accept="image/*"
+                                    onChange={(e) => { setProfilePhoto(e.target.files[0]) }}
+                                    required
+                                />
+                            </div>
                         </div>
-                        <div className="singleLineInput">
-                            <label>Last Name:</label>
-                            <input
-                                type="text"
-                                name="lastName"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="singleLineInput">
-                            <label>Date of Birth:</label>
-                            <input
-                                type="date"
-                                name="dob"
-                                value={dob}
-                                onChange={(e) => setDOB(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="photoInput">
-                            <label>Profile Photo:</label>
-                            <input
-                                type="file"
-                                name="profilePhoto"
-                                accept="image/*"
-                                onChange={(e) => { setProfilePhoto(e.target.files[0]) }}
-                                required
-                            />
-                        </div>
-                        <div className="controls">
+                        <div className="authControls">
                             {status && <div className="status">{status}</div>}
                             <div className="button-group">
                                 <button disabled={load} type='submit' className="btn btn-primary">Sign up</button>

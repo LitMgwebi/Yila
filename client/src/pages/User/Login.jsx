@@ -17,10 +17,12 @@ const Login = () => {
         }
     }
     return (
-        <div id="Add">
-            <h3>Login</h3>
-            <form className="authForm" onSubmit={handleSubmit}>
-
+        <div id="Authentication">
+            <div className="authSection">
+                <h1>Login</h1>
+                {load && <div>Loading...</div>}
+            </div>
+            <form onSubmit={handleSubmit}>
                 <div className="auth">
                     <div className="singleLineInput">
                         <label>Email: </label>
@@ -40,7 +42,7 @@ const Login = () => {
                         />
                     </div>
                 </div>
-                <div className="controls">
+                <div className="authControls">
                     {status && <div className="status">{status}</div>}
                     <div className="button-group">
                         <button disabled={load} type='submit' className="btn btn-primary">Login</button>
