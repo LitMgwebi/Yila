@@ -5,11 +5,11 @@ import Slider from "../pageStructure/Slider";
 function AnimationTemplate({ payload }) {
     const [expanded, setExpanded] = useState(false);
 
-
+   /* console.log(payload.movements)
     const movements = Array.from(payload.movements);
     const effects = Array.from(payload.effects);
     const backgrounds = Array.from(payload.backgrounds);
-
+    */
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
@@ -30,7 +30,7 @@ function AnimationTemplate({ payload }) {
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    <Slider pieces={movements} title={payload.title} />
+                    <Slider pieces={payload.movements} title={payload.title} />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -48,7 +48,7 @@ function AnimationTemplate({ payload }) {
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    <Slider pieces={backgrounds} title={payload.title} />
+                    <Slider pieces={payload.backgrounds} title={payload.title} />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
@@ -66,7 +66,7 @@ function AnimationTemplate({ payload }) {
                 </AccordionSummary>
 
                 <AccordionDetails>
-                    <Slider pieces={effects} title={payload.title} />
+                    <Slider pieces={payload.effects} title={payload.title} />
                 </AccordionDetails>
             </Accordion>
         </div>

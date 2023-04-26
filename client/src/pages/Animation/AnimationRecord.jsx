@@ -90,8 +90,17 @@ function AnimationRecord() {
                 {load && <div>Loading...</div>}
             </div>
             <div className="information">
-                <p>{payload.article}</p>
-                <img src={payload.preview} alt={payload.title} />
+                <div className="animationInformation">
+                    <div className="animtionPreview">
+                        <video width="320" height="240" controls>
+                            <source src={payload.preview} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div className="animationArticle">
+                        <p>{payload.article}</p>
+                    </div>
+                </div>
                 <AnimationTemplate payload={payload} />
             </div>
         </div>

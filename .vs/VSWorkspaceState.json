@@ -1,4 +1,11 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\media",
+    "\\client\\src\\media\\icons"
+  ],
+  "SelectedNode": "\\client\\src\\media\\icons",
   "PreviewInSolutionExplorer": false
 }

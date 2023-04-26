@@ -49,7 +49,8 @@ router.get('/', async (req, res) => {
 router.post('/add', upload.array("process"), requireAuth, async (req, res) => {
     let translation = null;
     const files = req.files;
-    const { urls, public_ids } = uploadMultipleFiles(files, "translation");
+    const { urls, public_ids } = await uploadMultipleFiles(files, "translation");
+
     try {
         translation = new Translation({
             article: req.body.article,
@@ -57,7 +58,8 @@ router.post('/add', upload.array("process"), requireAuth, async (req, res) => {
             process: urls,
             public_ids: public_ids,
             creator: req.user._id
-        })
+        });
+
         await translation.save();
 
         res.status(201).send({

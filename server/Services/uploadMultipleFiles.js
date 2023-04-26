@@ -13,6 +13,7 @@ async function uploadMultipleFiles(files, fileName){
         urls.push(url);
         public_ids.push(public_id);
     }
+
     return {urls, public_ids}
 }
 

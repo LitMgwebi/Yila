@@ -1,4 +1,10 @@
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
     return (
@@ -10,18 +16,20 @@ function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
                 {
                     payloads != null ?
                         payloads.length > 0 ?
-                            <div className="latestCard">
-                                <div className="latest">
-                                    {payloads.map((payload, i) => {
-                                        return (
-                                            <Card payload={payload} key={i} />
-                                        );
-                                    })}
-                                </div>
-                                <div className="seeMore">
-                                    <Link to={link}>See More...</Link>
-                                </div>
-                            </div>
+                            <Swiper
+                                modules={[Navigation, A11y, Pagination, Scrollbar]}
+                                spaceBetween={50}
+                                slidesPerView={1}
+                                navigation
+                                pagination={{ clickable: true }}
+                                scrollbar={{ draggable: true }}
+                            >
+                                {payloads.map((payload, i) => (
+                                    <SwiperSlide className="latestSlide">
+                                        <Card payload={payload} key={i} />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                             : <div className="seeMore">Whole lot of nothing</div>
                         : <div></div>
                 }

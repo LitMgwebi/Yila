@@ -36,7 +36,7 @@ function TranslationAdd({ id }) {
         }).then((res) => {
             setStatus(res.data.message)
             setArticle("");
-            setProcess("");
+            setProcess(null);
             setShowButton(true)
             setLoad(false);
         }).catch((error) => {
@@ -76,8 +76,8 @@ function TranslationAdd({ id }) {
                     {status && <div className="status">{status}</div>}
                     {load && <div>Loading...</div>}
                     <div className="button-group">
-                        <button type="submit" className="btn btn-primary">Submit</button>
-                        {showButton && <Link to="/character-design/id"><button className="btn btn-secondary">Finish</button></Link>}
+                        <button type="submit" className="btn btn-primary">Add Translation</button>
+                        {showButton && <Link to="/character-design"><button className="btn btn-secondary">Finish</button></Link>}
                     </div>
                 </div>
             </form>

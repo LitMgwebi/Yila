@@ -15,6 +15,8 @@ function TranslationIndex({ payload }) {
             handleDelete();
     }
 
+    console.log(payload)
+
     function handleDelete() {
         setLoad(true)
         axios({
@@ -48,7 +50,9 @@ function TranslationIndex({ payload }) {
             </div>
 
             <div className="translationInformation">
-                <p>{payload.description}</p>
+                <div className="translationDescription">
+                    <p>{payload.article}</p>
+                </div>
                 <div className="translationSlider">
                     <Slider pieces={process} title="process Image" />
                 </div>

@@ -1,24 +1,22 @@
-body {  
-  width:auto;
-  background-color: khaki;
-  overflow-y: auto;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+    background-color: khaki;
+    overflow-y: auto;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-.App{
-  text-align: center;
-  margin: 0;
+
+.App {
+    text-align: center;
+    margin: 0;
 }
 
 a {
@@ -26,11 +24,11 @@ a {
 }
 
 /*Header*/
-#Header{
-  height: 9vh;
-  display: flex;
-  align-items:center;
-  justify-content: space-around;
+#Header {
+    height: 9vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .navBar {
@@ -38,69 +36,115 @@ a {
     flex-direction: row;
     justify-content: center;
 }
-.homeLogo{
-    margin:0 0.5rem;
+
+.homeLogo {
+    margin: 0 0.5rem;
     width: 5.3rem;
     height: 6.5rem;
 }
-.navLogo{
+
+.navLogo {
     width: 3.5rem;
     height: 3.5rem;
 }
-.navLogo:hover{
+
+.navLogo:hover {
     width: 3.8rem;
     height: 3.8rem;
 }
+
+
+
 /*Index*/
-#Index {
+#Index, #Record {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 80vh;
 }
-.information{
-  background-color: whitesmoke;
-  margin: 1rem;
-  width: 100%;
-  min-height: 20rem;
-  overflow-x: auto;
-  height:auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.information {
+    background-color: whitesmoke;
+    margin: 1rem;
+    width: 100%;
+    min-height: 20rem;
+    overflow-x: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+
+
+/*Animation*/
+.animationInformation{
+    width: 40%
+}
+.animationTemplate {
+    width: 60%;
+    height: auto;
+}
+
+
+/*Translation*/
+.characterImage img {
+    width: 70%;
+}
+.translations {
+    display: flex;
+    flex-flow: row wrap;
+    height: auto;
+    width: 100%
+}
+.translationIndex {
+    width: 49%;
+    border-radius: 0.5em;
+    border: 1px solid;
+    height: auto;
+    margin: auto;
+}
+.translationInformation {
+    height: 20rem;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+.translationDescription{
+    height: auto;
+    margin: 1.5rem;
+    width: 100%;
+}
+.translationSlider {
+    width: 100%;
+}
+.swiperSlide img {
+    width: 60%;
+}
+
 
 /* Latest */
 .latest {
-  display: flex;
-  margin: 2rem 0;
-  height: 20rem;
-}
-.latestPiecesHeader{
-  width: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.latestPieces{
-  width: 80%;
-  padding: 0;
-  border-radius: 1rem;
-  background-color: whitesmoke;
-  overflow-x: clip;
-  overflow-y: hidden;
-}
-.latestCard{
-    width: auto;
     display: flex;
-    flex-flow: row wrap;
+    margin: 2rem 0;
+    height: 20rem;
 }
-.seeMore {
+
+.latestPiecesHeader {
+    width: 40%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    height: auto;
+    align-items: center;
 }
+
+.latestPieces {
+    width: 60%;
+    padding: 0;
+    margin: 0 1rem 0;
+}
+
+
 
 /* Cards*/
 .card, .backgroundCard {
@@ -108,15 +152,19 @@ a {
     height: 15rem;
     margin: 2rem;
 }
-.cardHeader{
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+
+.cardHeader {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
+
 .cardMedia {
-  height: 80%
+    height: 80%
 }
+
+
 
 /* AddCard Forms*/
 .createCard {
@@ -125,20 +173,24 @@ a {
     width: 30%;
     height: auto;
 }
+
 #Authentication {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 79vh;
 }
-.authSection{
+
+.authSection {
     margin: 0 0 3rem;
 }
+
 #Authentication form {
     width: 40%;
     background-color: gray;
     height: 20rem;
 }
+
 .auth {
     display: flex;
     flex-direction: column;
@@ -146,29 +198,36 @@ a {
     align-content: center;
     justify-content: center;
 }
-.authForm{
-     height: 20rem;
+
+.authForm {
+    height: 20rem;
 }
+
 .authControls {
     height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.singleLineInput, .photoInput{
+
+.singleLineInput, .photoInput {
     display: flex;
     margin: 0.5rem 0;
     justify-content: center;
 }
-#Authentication label{
+
+#Authentication label {
     width: 30%;
     display: flex;
-    justify-content:flex-end;
+    justify-content: flex-end;
     height: 100%;
 }
+
 #Authentication input {
     margin: auto
 }
+
+
 
 /*Footer*/
 #Footer {

@@ -91,7 +91,7 @@ function CharacterDesignRecord() {
             <div className="section">
                 <h2 id="ProjectHeader">{payload.nameOfCharacter}</h2>
                 <div className="button-group">
-                    <Link to="/portfolio/character-design/"><button className="btn btn-secondary">Back</button></Link>
+                    <Link to="/character-design/"><button className="btn btn-secondary">Back</button></Link>
                     {user &&
                         <button onClick={handleConfirm} className="btn btn-danger">
                             Delete
