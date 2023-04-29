@@ -19,13 +19,13 @@ function Dashboard() {
     const id = location.state.stateId;
 
     useEffect(() => {
-        try{
+        try {
             async function fetchData() {
                 const res = await axios({
                     method: "GET",
                     url: `${baseUrl}/user/${id}`
                 });
-        
+
                 const update = {
                     email: res.data.user.email,
                     firstName: res.data.user.firstName,
@@ -42,30 +42,30 @@ function Dashboard() {
             }
 
             fetchData();
-        }catch(error){
+        } catch (error) {
             setLoad(false);
             setStatus(error.response.data.error);
         }
-    },[id])
+    }, [id])
 
     return (
         <div id="Dashboard">
             <div className="controls">
-
                 <h2>{payload.firstName} {payload.lastName}</h2>
-                <img src={payload.profilePhoto} alt={`${payload.firstName} ${payload.lastName}`} />
                 <div className="button-group">
                     <Link to="/artist"><button className="btn btn-secondary">Back</button></Link>
                 </div>
 
                 {status && <div className="status">{status}</div>}
                 {load && <div>Loading...</div>}
-
-                <div className="dashboardInformation">
-                    <p>{payload.DOB}</p>
-
-                    <DashboardTemplate id={id} />
+            </div>
+            <div className="dashboardInformation">
+                <div className="profileImage">
+                    <img src={payload.profilePhoto} alt={`${payload.firstName} ${payload.lastName}`} />
                 </div>
+                <time dateTime={payload.DOB}>Birth</time>
+
+                <DashboardTemplate id={id} />
             </div>
         </div>
     )

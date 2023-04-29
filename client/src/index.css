@@ -9,19 +9,17 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
 .App {
     text-align: center;
     margin: 0;
 }
-
 a {
     color: black;
 }
+
 
 /*Header*/
 #Header {
@@ -30,29 +28,52 @@ a {
     align-items: center;
     justify-content: space-around;
 }
-
 .navBar {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-
 .homeLogo {
     margin: 0 0.5rem;
     width: 5.3rem;
     height: 6.5rem;
 }
-
 .navLogo {
     width: 3.5rem;
     height: 3.5rem;
 }
-
 .navLogo:hover {
     width: 3.8rem;
     height: 3.8rem;
 }
-
+.log {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.headerLogo{
+    width:1.8rem;
+    height:1.8rem;
+    margin: 0 0.5rem;
+}
+#SearchBar {
+    margin: 1.5rem;
+    width: auto;
+    z-index: 3;
+}
+#SearchBar input {
+    width: 18rem;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+}
+#HeaderMenu{
+    background-color: blue;
+    position: absolute;
+    z-index:1;
+    height: auto;
+}
 
 
 /*Index*/
@@ -62,7 +83,9 @@ a {
     align-items: center;
     min-height: 80vh;
 }
-
+.ProjectHeader{
+    margin: 2rem;
+}
 .information {
     background-color: whitesmoke;
     margin: 1rem;
@@ -79,11 +102,25 @@ a {
 
 /*Animation*/
 .animationInformation{
-    width: 40%
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    overflow-y: scroll;
+}
+.videoPlayer{
+    height: 100%;
+    width: 80%;
+}
+.animationArticle{
+    margin: 1rem 0;
+    padding: 0.5rem;
+    height: auto;
 }
 .animationTemplate {
-    width: 60%;
+    width: 50%;
     height: auto;
+    overflow-y: scroll;
 }
 
 
@@ -98,7 +135,7 @@ a {
     width: 100%
 }
 .translationIndex {
-    width: 49%;
+    width: 40%;
     border-radius: 0.5em;
     border: 1px solid;
     height: auto;
@@ -113,14 +150,45 @@ a {
 }
 .translationDescription{
     height: auto;
-    margin: 1.5rem;
+    margin: 1rem;
     width: 100%;
 }
 .translationSlider {
     width: 100%;
 }
-.swiperSlide img {
+
+
+/*Concept*/
+.conceptSlider {
+    width: 40%;
+    display: flex;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+.conceptDescription{
+    display: flex;
+    height: auto;
+    justify-content: center;
     width: 60%;
+}
+
+
+/*Sliders*/
+.cardSlider {
+    width: 15rem;
+    height: 15rem;
+}
+.swiper img{
+    width: 100%;
+}
+.flipSlider, naviSlider {
+    width: 58%;
+    height: 55%;
+}
+.overflowSlider {
+    width: 14rem;
+    height: auto;
 }
 
 
@@ -128,22 +196,17 @@ a {
 .latest {
     display: flex;
     margin: 2rem 0;
-    height: 20rem;
+    height: auto;
+    width: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-.latestPiecesHeader {
-    width: 40%;
+.latestPieces {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-.latestPieces {
-    width: 60%;
-    padding: 0;
-    margin: 0 1rem 0;
-}
-
 
 
 /* Cards*/
@@ -152,18 +215,24 @@ a {
     height: 15rem;
     margin: 2rem;
 }
-
 .cardHeader {
     height: 20%;
     display: flex;
     justify-content: center;
     align-content: center;
 }
-
 .cardMedia {
     height: 80%
 }
-
+.artistCard {
+    width: 15rem;
+    height: 20rem;
+    margin: 2rem;
+}
+.artistCardMedia {
+    height: 80%;
+    border-radius: 10rem;
+}
 
 
 /* AddCard Forms*/
@@ -173,24 +242,20 @@ a {
     width: 30%;
     height: auto;
 }
-
 #Authentication {
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 79vh;
 }
-
 .authSection {
     margin: 0 0 3rem;
 }
-
 #Authentication form {
     width: 40%;
     background-color: gray;
     height: 20rem;
 }
-
 .auth {
     display: flex;
     flex-direction: column;
@@ -198,35 +263,29 @@ a {
     align-content: center;
     justify-content: center;
 }
-
 .authForm {
     height: 20rem;
 }
-
 .authControls {
     height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 .singleLineInput, .photoInput {
     display: flex;
     margin: 0.5rem 0;
     justify-content: center;
 }
-
 #Authentication label {
     width: 30%;
     display: flex;
     justify-content: flex-end;
     height: 100%;
 }
-
 #Authentication input {
     margin: auto
 }
-
 
 
 /*Footer*/

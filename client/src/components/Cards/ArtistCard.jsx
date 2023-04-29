@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function ArtistCard({ payload }) {
     return (
-        <Card className="card">
+        <Card className="artistCard">
             <Link
                 to={`/artist/${payload._id}`}
                 state={{ stateId: payload._id }}
@@ -15,7 +15,7 @@ function ArtistCard({ payload }) {
                     component="img"
                     alt={payload.firstName}
                     image={payload.profilePhoto}
-                    className="cardMedia"
+                    className="artistCardMedia"
                 />
             </Link>
         </Card>

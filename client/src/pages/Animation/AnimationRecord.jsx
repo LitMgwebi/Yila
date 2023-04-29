@@ -76,7 +76,7 @@ function AnimationRecord() {
         <div id="Record">
             <div className="controls">
 
-                <h2>{payload.title}</h2>
+                <h2 className="ProjectHeader">{payload.title}</h2>
                 <div className="button-group">
                     <Link to="/animation"><button className="btn btn-secondary">Back</button></Link>
                     {user &&
@@ -92,7 +92,7 @@ function AnimationRecord() {
             <div className="information">
                 <div className="animationInformation">
                     <div className="animtionPreview">
-                        <video width="320" height="240" controls>
+                        <video className="videoPlayer" controls>
                             <source src={payload.preview} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>

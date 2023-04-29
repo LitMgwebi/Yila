@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+import { EffectCoverflow, Pagination } from "swiper";
 
 function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
     return (
@@ -17,20 +16,28 @@ function LatestPiecesTemplate({ payloads, Card, categoryName, load, link }) {
                     payloads != null ?
                         payloads.length > 0 ?
                             <Swiper
-                                modules={[Navigation, A11y, Pagination, Scrollbar]}
-                                spaceBetween={50}
-                                slidesPerView={1}
-                                navigation
-                                pagination={{ clickable: true }}
-                                scrollbar={{ draggable: true }}
+                                effect={"coverflow"}
+                                grabCursor={true}
+                                centeredSlides={true}
+                                slidesPerView={"auto"}
+                                coverflowEffect={{
+                                    rotate: 50,
+                                    stretch: 0,
+                                    depth: 100,
+                                    modifier: 1,
+                                    slideShadows: true,
+                                }}
+                                pagination={true}
+                                modules={[EffectCoverflow, Pagination]}
+                                className="overflowSlider"
                             >
                                 {payloads.map((payload, i) => (
-                                    <SwiperSlide className="latestSlide">
-                                        <Card payload={payload} key={i} />
+                                    <SwiperSlide className="latestSlide" key={payload._id}>
+                                        <Card payload={payload} key={payload._id} />
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
-                            : <div className="seeMore">Whole lot of nothing</div>
+                            : <div className="card">Whole lot of nothing</div>
                         : <div></div>
                 }
 

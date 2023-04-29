@@ -89,7 +89,7 @@ function CharacterDesignRecord() {
     return (
         <div id="Record">
             <div className="section">
-                <h2 id="ProjectHeader">{payload.nameOfCharacter}</h2>
+                <h2 className="ProjectHeader">{payload.nameOfCharacter}</h2>
                 <div className="button-group">
                     <Link to="/character-design/"><button className="btn btn-secondary">Back</button></Link>
                     {user &&

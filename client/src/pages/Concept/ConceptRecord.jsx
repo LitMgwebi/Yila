@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import axios from "axios";
-import Slider from "../../components/pageStructure/Slider";
 import { useAuthContext } from "../../hooks/useAuthContext";
 import baseUrl from "../../hooks/baseUrl";
 import { useState, useEffect } from "react";
+import FlipSlider from "../../components/pageStructure/FlipSlider";
 
 function ConceptRecord() {
     const location = useLocation();
@@ -18,7 +18,6 @@ function ConceptRecord() {
     });
     const [load, setLoad] = useState(true);
     const [status, setStatus] = useState(null);
-    let pieces = null;
 
     useEffect(() => {
         axios({
@@ -36,14 +35,13 @@ function ConceptRecord() {
             }));
             setStatus(res.data.message);
             setLoad(false);
+    console.log(payload.pieces);
         }).catch((error) => {
             setLoad(false);
             setStatus(error.response.data.error);
             console.error(error.message);
         })
     }, [id]);
-
-    pieces = Array.from(payload.pieces);
 
     const handleConfirm = () => {
         if (window.confirm("Are you sure you want to delete"))
@@ -74,7 +72,7 @@ function ConceptRecord() {
         <div id="Record">
             <div className="section">
 
-                <h2>{payload.title}</h2>
+                <h2 className="ProjectHeader">{payload.title}</h2>
 
                 <div className="button-group">
                     <Link to="/concept/"><button className="btn btn-secondary">Back</button></Link>
@@ -90,11 +88,10 @@ function ConceptRecord() {
 
             <div className="information">
                 <div className="conceptDescription">
-
                     <p >{payload.article}</p>
                 </div>
                 <div className="conceptSlider">
-                    <Slider pieces={pieces} title={payload.title} />
+                    <FlipSlider pieces={payload.pieces} title={payload.title} />
                 </div>
             </div>
         </div>

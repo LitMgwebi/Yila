@@ -5,11 +5,6 @@ import Slider from "../pageStructure/Slider";
 function AnimationTemplate({ payload }) {
     const [expanded, setExpanded] = useState(false);
 
-   /* console.log(payload.movements)
-    const movements = Array.from(payload.movements);
-    const effects = Array.from(payload.effects);
-    const backgrounds = Array.from(payload.backgrounds);
-    */
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };

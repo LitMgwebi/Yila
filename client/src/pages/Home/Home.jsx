@@ -6,6 +6,7 @@ import FineArtCard from "../../components/Cards/FineArtCard";
 import { useGet, useGetFineArt } from "../../hooks/useGet";
 import ConceptCard from "../../components/Cards/ConceptCard";
 import LatestPiecesTemplate from "../../components/Forms/LatestPiecesTemplate";
+import SearchBar from "../../components/pageStructure/SearchBar";
 
 function Home() {
     const { payloads: animationPayloads, load: animationLoad } = useGet("animation")
@@ -15,6 +16,7 @@ function Home() {
     const { payloads: cdPayloads, load: cdLoad } = useGet("characterDesign")
     return (
         <div id="Home">
+            <SearchBar/>
             <HomeNav />
 
             <div></div>

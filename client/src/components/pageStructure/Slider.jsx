@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
 function Slider({ pieces, title }) {
+    const artworks = Array.from(pieces);
     return (
         <Swiper
             modules={[Navigation, A11y, Pagination, Scrollbar]}
@@ -14,10 +15,11 @@ function Slider({ pieces, title }) {
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
+            className="naviSlider"
         >
-            {pieces.map(piece => (
+            {artworks.map(artwork => (
                 <SwiperSlide className="swiperSlide">
-                    <img src={piece} alt={title} />
+                    <img src={artwork} alt={title} />
                 </SwiperSlide>
             ))}
         </Swiper>

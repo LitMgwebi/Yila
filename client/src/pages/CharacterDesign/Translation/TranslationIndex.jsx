@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import baseUrl from "../../../hooks/baseUrl";
-import Slider from "../../../components/pageStructure/Slider";
 import { useAuthContext } from "../../../hooks/useAuthContext";
+import CardSlider from "../../../components/pageStructure/CardSlider";
 
 function TranslationIndex({ payload }) {
     const process = Array.from(payload.process);
@@ -54,7 +54,7 @@ function TranslationIndex({ payload }) {
                     <p>{payload.article}</p>
                 </div>
                 <div className="translationSlider">
-                    <Slider pieces={process} title="process Image" />
+                    <CardSlider pieces={process} title="process Image" />
                 </div>
             </div>
         </div>
