@@ -78,21 +78,29 @@ router.get('/list', async (req, res) => {
 router.get('/index', requireAuth, async (req, res) => {
     let animation = null;
     const creator = req.user._id;
+    let message = "";
 
     try {
         animation = await Animation.find({ creator }).sort({ createdAt: 'desc' }).exec();
 
+        if (animation.length > 0) {
+            message = "Animations retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
+
         res.status(200).send({
             animation: animation,
             error: null,
-            message: "Animations retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Animations retrieval failed"
         res.status(400).send({
             animation: animation,
             error: error.message,
-            message: "Animations retrieval failed"
+            message: message
         });
     }
 });

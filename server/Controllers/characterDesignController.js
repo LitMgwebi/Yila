@@ -78,20 +78,29 @@ router.get('/list', async (req, res) => {
 router.get('/index', requireAuth, async (req, res) => {
     let cd = null;
     const creator = req.user._id;
+    let message = "";
 
     try{
-        cd = await CharacterDesign.find({creator}).sort({ createdAt: "desc" }).exec();
+        cd = await CharacterDesign.find({ creator }).sort({ createdAt: "desc" }).exec();
+
+        if (cd.length > 0) {
+            message = "Character design retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
+
         res.status(200).send({
             characterDesign: cd,
             error: null,
-            message: "Character designs retrived successfully"
+            message: message
         });
     }catch(error){
         log.error(error);
+        message = "Character designs retrival failed";
         res.status(404).send({
             characterDesign: cd,
             error: error.message,
-            message: "Character designs retrival failed"
+            message: message
         });
     }
 });

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\client",
+    "\\client\\src"
   ],
-  "SelectedNode": "\\client\\src\\components\\Forms\\InformationTemplate.jsx",
+  "SelectedNode": "\\client\\src\\index.css",
   "PreviewInSolutionExplorer": false
 }

@@ -77,21 +77,29 @@ router.get('/list', async (req, res) => {
 router.get('/index', requireAuth, async (req, res) => {
     let background = null;
     const creator = req.user._id;
+    let message = '';
 
     try {
         background = await Background.find({ creator }).sort({ createdAt: "desc" }).exec();
 
+        if (background.length > 0) {
+            message = "Background pieces retrieved successfully";
+        } else {
+            message = "There are no entries in the database";
+        }
+
         res.status(200).send({
             background: background,
             error: null,
-            message: "Background pieces retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Background pieces retrieval failed";
         res.status(400).send({
             background: background,
             error: error.message,
-            message: "Background pieces retrieval failed"
+            message: message
         });
     }
 });

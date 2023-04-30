@@ -4,6 +4,7 @@ import User from '../Models/User.js';
 import jwt from "jsonwebtoken";
 import upload from "../Middleware/upload.js";
 import { uploadToCloudinary, removeFromCloudinary } from "../Services/cloudinary.js";
+import log from '../config/logging.js';
 
 const router = Router();
 //#endregion

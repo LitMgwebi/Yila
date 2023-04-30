@@ -105,11 +105,18 @@ router.get('/list', async (req, res) => {
 router.get('/index', requireAuth, async (req, res) => {
     let fineArt = null;
     const creator = req.user._id;
+    let message = ""
 
     try {
         const landscape = await FineArt.find({ creator, physicalType: 'Landscape' }).sort({ createdAt: "desc" }).exec();
         const portrait = await FineArt.find({ creator, physicalType: 'Portrait' }).sort({ createdAt: "desc" }).exec();
         const other = await FineArt.find({ creator, physicalType: 'Other' }).sort({ createdAt: "desc" }).exec();
+
+        if (landscape.length > 0 || portrait.length > 0 || other.length > 0) {
+            message = "Fine Art retrieved successfully"
+        } else {
+            message = "There are no entries in the database"
+        }
 
         fineArt = {
             landscape: landscape,
@@ -119,14 +126,15 @@ router.get('/index', requireAuth, async (req, res) => {
         res.status(201).send({
             fineArt: fineArt,
             error: null,
-            message: "Fine Art retrieved successfully"
+            message: message
         });
     } catch (error) {
         log.error(error.message);
+        message = "Fine Art retrieval failed";
         res.status(400).send({
             fineArt: fineArt,
             error: error.message,
-            message: "Fine Art retrieval failed"
+            message: message
         })
     }
 });
